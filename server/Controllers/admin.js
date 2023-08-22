@@ -11,7 +11,6 @@ export const websiteSeo= async(req,res)=>{
         const $ = cheerio.load(html);
 
 
-
         let hasRobotsDisallowAll = false;
 
         try {
