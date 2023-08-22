@@ -9,14 +9,32 @@ export const websiteSeo= async(req,res)=>{
         const response = await axios.get(websiteUrl);
         const html = response.data;
         const $ = cheerio.load(html);
-    
-        const robotsResponse = await axios.get(`${websiteUrl}/robots.txt`);
-        const robotsTxt = robotsResponse.data;
-        const hasRobotsDisallowAll = /Disallow:\s*\//i.test(robotsTxt);
 
-        const sitemapResponse = await axios.get(`${websiteUrl}/sitemap.xml`);
-        const sitemapXml = sitemapResponse.data;
-        const hasValidSitemap = sitemapXml.includes('<urlset');
+
+
+        let hasRobotsDisallowAll = false;
+
+        try {
+          const robotsResponse = await axios.get(`${websiteUrl}/robots.txt`);
+          const robotsTxt = robotsResponse.data;
+          hasRobotsDisallowAll = /Disallow:\s*\//i.test(robotsTxt);
+      } catch (error) {
+          console.error('Error fetching robots.txt:', error); 
+      }
+        // const robotsResponse = await axios.get(`${websiteUrl}/robots.txt`);
+        // const robotsTxt = robotsResponse.data;
+        // const hasRobotsDisallowAll = /Disallow:\s*\//i.test(robotsTxt);
+      let hasValidSitemap=false
+        try {
+          const sitemapResponse = await axios.get(`${websiteUrl}/sitemap.xml`);
+          const sitemapXml = sitemapResponse.data;
+          const hasValidSitemap = sitemapXml.includes('<urlset');    
+          } catch (error) {
+          console.error('Error fetching robots.txt:', error); 
+      }
+        
+        
+        
 
     
         const title = $('title').text();
