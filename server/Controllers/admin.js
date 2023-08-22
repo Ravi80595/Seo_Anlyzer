@@ -36,8 +36,8 @@ export const websiteSeo= async(req,res)=>{
         
 
     
-        const title = $('title').text();
-        const metaDescription = $('meta[name="description"]').attr('content');
+        const title = $('title').text() || ''
+        const metaDescription = $('meta[name="description"]').attr('content') || ''
         const h1Tags = $('h1');
         const h2Tags = $('h2');
         const h3Tags = $('h3');
@@ -91,8 +91,8 @@ export const websiteSeo= async(req,res)=>{
 // ************************************  Title and meta desc range Checks here *************************************************
 
 
-        const isTitleInRange = title.length >= 60 && title.length <= 90;
-        const isMetaDescriptionInRange = metaDescription.length >= 160 && metaDescription.length <= 300;
+        const isTitleInRange = title.length >= 60 && title.length <= 90 || false
+        const isMetaDescriptionInRange = metaDescription.length >= 160 && metaDescription.length <= 300 || false
 
         const isSecure = response.request.connection.encrypted;
 
@@ -251,7 +251,7 @@ export const websiteSeo= async(req,res)=>{
           h6TagCount: h6Tags.length,
           imageCount: totalImages,
           imagewithoutAlt:imagesWithoutAlt,
-          pTagCount:text.length,
+          pTagCount:text.length || 0,
           isTitleInRange: isTitleInRange?'Perfect':'Title charcters not have legth of 60 to 90 charcters',
           isMetaDescriptionInRange: isMetaDescriptionInRange?'Perfect':'Description charcters not have legth of 160 to 300 charcters',
           sercure:isSecure?'Website have SSL/HTTPS Certificate, SECURED':"Website is not secured",
