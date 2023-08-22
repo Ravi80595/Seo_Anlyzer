@@ -176,7 +176,7 @@ export const websiteSeo= async(req,res)=>{
     //   }
     // }
 
-    await Promise.all(allLinks.map(checkLink));
+    // await Promise.all(allLinks.map(checkLink));
 
 
 // ************************************  Structure Data Checks here *************************************************
