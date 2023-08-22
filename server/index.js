@@ -26,7 +26,7 @@ let connections = mongoose.connect(process.env.MONGO_URL)
 
 app.listen(PORT,()=>{
     try{
-        connections
+        // connections
         console.log(`Server Connected With DataBase ${PORT}`)
     }
     catch(err){

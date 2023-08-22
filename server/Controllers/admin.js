@@ -6,7 +6,6 @@ export const websiteSeo= async(req,res)=>{
     const websiteUrl = req.body.url;
     console.log(req.body.url,'req')
     try{
-
         const response = await axios.get(websiteUrl);
         const html = response.data;
         const $ = cheerio.load(html);
@@ -31,6 +30,18 @@ export const websiteSeo= async(req,res)=>{
         const images = $('img');
         const text = $('p');
 
+
+// ************************************ Page Load Speed Analysis here *************************************************
+
+         const startTime = Date.now();
+            
+         // Make a new axios request to measure page load time
+         const pageLoadResponse = await axios.get(websiteUrl);
+         const endTime = Date.now();
+         const pageLoadTimeInMilliseconds  = endTime - startTime;
+         const pageLoadTimeInSeconds = pageLoadTimeInMilliseconds / 1000;
+
+// ************************************  Subpages Checks here *************************************************
 
 
         const subpages = [];
@@ -168,11 +179,10 @@ export const websiteSeo= async(req,res)=>{
     await Promise.all(allLinks.map(checkLink));
 
 
+// ************************************  Structure Data Checks here *************************************************
 
 
     const structuredData = [];
-    
-    // Extract script tags containing structured data
     $('script[type="application/ld+json"]').each((index, element) => {
       const scriptContent = $(element).html();
       try {
@@ -183,22 +193,36 @@ export const websiteSeo= async(req,res)=>{
       }
     });
 
+// ************************************  canonical Urls Checks here *************************************************
+
 
     const canonicalUrls = new Set();
-
-    // Extract canonical URLs from link elements
     $('link[rel="canonical"]').each((index, element) => {
       const canonicalUrl = $(element).attr('href');
       canonicalUrls.add(canonicalUrl);
     });
 
 
+    const uniqueTextContent = new Set();
+    const duplicateTextContent = [];
+  
+    // Check duplicate content within text paragraphs
+    text.each((index, element) => {
+      const paragraphText = $(element).text().trim();
+  
+      if (uniqueTextContent.has(paragraphText)) {
+        duplicateTextContent.push(paragraphText);
+      } else {
+        uniqueTextContent.add(paragraphText);
+      }
+    });
+
 
 
 
 // ***************************************** Analysis Report Here *******************************************
     
-        const seoAnalysis = {
+    const seoAnalysis = {
           WebsiteUrl:websiteUrl,  
           title: title || 'No title tag',
           metaDescription: metaDescription || 'No meta description',
@@ -225,20 +249,15 @@ export const websiteSeo= async(req,res)=>{
           socialMediaStatus,
           missingPlatforms,
           subpages:subpages.length,
-        //   allLinks,
           brokenLinks,
-        //   structuredData: structuredData,
           hasStructuredData: structuredData.length > 0?"Website have structure data":'website dont have structured data',
-        //   urlStructureIssues: urlStructureIssues,
-        //   hasUrlStructureIssues: urlStructureIssues.length > 0,
           canonicalUrls: Array.from(canonicalUrls),
           hasCanonicalUrls: canonicalUrls.size > 0,
+          duplicateTextContent: duplicateTextContent,
+          pageLoadTime: pageLoadTimeInSeconds,
         };
         res.json(seoAnalysis);
     }catch(err){
         console.log(err)
     }
 }
-
-
-// /semrush
