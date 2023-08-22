@@ -11,9 +11,9 @@ app.use(cors())
 app.use(express.json())
 
 
-app.use("/",(req,res)=>{
-    res.status(200).send("Welcome To SEO anylazer api")
-})
+// app.use("/",(req,res)=>{
+//     res.status(200).send("Welcome To SEO anylazer api")
+// })
 
 app.use("/admin",adminRoutes)
 
