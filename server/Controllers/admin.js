@@ -161,20 +161,20 @@ export const websiteSeo= async(req,res)=>{
 
 
             
-    const allLinks = $('a[href]').map((index, element) => $(element).attr('href')).get();
+    // const allLinks = $('a[href]').map((index, element) => $(element).attr('href')).get();
 
-    const brokenLinks = [];
+    // const brokenLinks = [];
 
-    async function checkLink(link) {
-      try {
-        const linkResponse = await axios.get(link);
-        if (linkResponse.status >= 400) {
-          brokenLinks.push(link);
-        }
-      } catch (error) {
-        brokenLinks.push(link);
-      }
-    }
+    // async function checkLink(link) {
+    //   try {
+    //     const linkResponse = await axios.get(link);
+    //     if (linkResponse.status >= 400) {
+    //       brokenLinks.push(link);
+    //     }
+    //   } catch (error) {
+    //     brokenLinks.push(link);
+    //   }
+    // }
 
     await Promise.all(allLinks.map(checkLink));
 
@@ -249,7 +249,7 @@ export const websiteSeo= async(req,res)=>{
           socialMediaStatus,
           missingPlatforms,
           subpages:subpages.length,
-          brokenLinks,
+          // brokenLinks,
           hasStructuredData: structuredData.length > 0?"Website have structure data":'website dont have structured data',
           canonicalUrls: Array.from(canonicalUrls),
           hasCanonicalUrls: canonicalUrls.size > 0,
