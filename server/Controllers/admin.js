@@ -32,9 +32,6 @@ export const websiteSeo= async(req,res)=>{
           console.error('Error fetching robots.txt:', error); 
       }
         
-        
-        
-
     
         const title = $('title').text() || ''
         const metaDescription = $('meta[name="description"]').attr('content') || ''
@@ -47,6 +44,8 @@ export const websiteSeo= async(req,res)=>{
         const images = $('img');
         const text = $('p');
 
+
+        const langAttribute = $('html').attr('lang');
 
 // ************************************ Page Load Speed Analysis here *************************************************
 
@@ -252,8 +251,8 @@ export const websiteSeo= async(req,res)=>{
           imageCount: totalImages,
           imagewithoutAlt:imagesWithoutAlt,
           pTagCount:text.length || 0,
-          isTitleInRange: isTitleInRange?'Perfect':'Title charcters not have legth of 60 to 90 charcters',
-          isMetaDescriptionInRange: isMetaDescriptionInRange?'Perfect':'Description charcters not have legth of 160 to 300 charcters',
+          isTitleInRange: isTitleInRange?'You have a title tag of optimal length (between 10 and 70 characters).':'Title charcters not have legth of 60 to 90 charcters',
+          isMetaDescriptionInRange: isMetaDescriptionInRange?'Your page has a meta description of optimal length (between 70 and 160 characters).':'Description charcters not have legth of 160 to 300 charcters',
           sercure:isSecure?'Website have SSL/HTTPS Certificate, SECURED':"Website is not secured",
           hasRobots:hasRobotsDisallowAll?'Website have robots.txt file':'Website dont have robots.txt file',
           hasSitemap:hasValidSitemap?'Sitemap found':"Website have no sitemap",
@@ -272,6 +271,7 @@ export const websiteSeo= async(req,res)=>{
           hasCanonicalUrls: canonicalUrls.size > 0,
           duplicateTextContent: duplicateTextContent,
           pageLoadTime: pageLoadTimeInSeconds,
+          langAttribute:langAttribute?'Your page is using the lang attribute':'Your page is not using the lang attribute.'
         };
         res.json(seoAnalysis);
     }catch(err){
