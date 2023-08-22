@@ -7,7 +7,7 @@ const Dashboard = () => {
     const [url,setUrl]=useState('')
     const [data,setData]=useState([])
     const [loading,setLoading]=useState(false)
-    console.log(data,'data')
+    // console.log(data,'data')
 
 
 const handleSubmit=()=>{
