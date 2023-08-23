@@ -1,6 +1,13 @@
 import React, { useState } from 'react'
-import {Box,Input,Button,Text, Heading} from '@chakra-ui/react'
+import {Box,Input,Button,Text, Heading, Flex, Image} from '@chakra-ui/react'
 import axios from 'axios'
+import {FaCheck} from 'react-icons/fa'
+import {RxCross2} from 'react-icons/rx'
+import UsabilityStatus from '../Components/UsabilityStatus'
+import LinksStatus from '../Components/LinksStatus'
+
+
+
 
 
 const Dashboard = () => {
@@ -23,13 +30,13 @@ const handleSubmit=()=>{
 
 
 return (
-    <Box background={'#e9e9e9'}>
+    <Box background={'#e9e9e9'} pt={'80px'}>
     <Box  w={'70%'} m={'auto'} pt={1}>
     <Box borderRadius={5} w={'100%'} m={'auto'} p={10} mt={10} background={'white'}>
         <Input placeholder='Enter Your url here' value={url} onChange={(e)=>setUrl(e.target.value)}/>
         <Button onClick={handleSubmit} mt={5}>Submit</Button>
     </Box>
-    <Box mt={4} borderRadius={5} h={'850px'} background={'white'}>
+    <Box mt={4} borderRadius={5} h={'auto'} background={'white'}>
         {loading?'Analyzing website please wait.........':data.map((ele)=>{
            return( 
             <Box background={'#e9e9e9'}>
@@ -50,10 +57,10 @@ return (
                 <Text> Image without alt : {ele.imagewithoutAlt}</Text>
                 </Box>
                 <Box fontWeight={'600'} color={'#505458'} borderTop={'1px solid grey'} p={4} mt={3}>
-                <Text>H6 Tags : {ele.h6TagCount}</Text>
+                <Text>H1 Tags : {ele.h1TagCount}</Text>
                 </Box>
                 <Box fontWeight={'600'} color={'#505458'} borderTop={'1px solid grey'} p={4} mt={3}>
-                <Text>H1 Tags : {ele.h1TagCount}</Text>
+                <Text>H6 Tags : {ele.h6TagCount}</Text>
                 </Box>
                 <Box fontWeight={'600'} color={'#505458'} borderTop={'1px solid grey'} p={4} mt={3}>
                 <Text> Canonical URL : {ele.canonicalUrls}</Text>
@@ -65,84 +72,416 @@ return (
                 <Text> Google Console : {ele.googleConsole}</Text>
                 </Box>
                 </Box>
-                <Box mt={5} background={'white'} p={5} borderRadius={5}>
+
+
+
+
+
+
+
+
+                <Box mt={5} background={'white'} p={5} pl={8} borderRadius={5}>
                     <Text fontSize={'26px'}>On-Page SEO Results</Text>
+                    <Flex gap={'70px'} w={'90%'} m={'auto'}  mt={10} mb={10}>
+                        <Box w={'60%'} m ='auto'>
+                        <Text fontSize={'46px'} fontWeight={'700'} color={'blue.400'}>PERFECT</Text>
+                        </Box>
                     <Box>
+                        <Text fontWeight={'600'} lineHeight={'36px'} color={"#505458"} fontSize={'24px'}>Your social is very good!</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>Congratulations, your social presence is strong and active. Social activity is important for customer communication, brand awareness and as a marketing channel to bring more visitors to your website. We recommend continued use of social campaigns to grow this further.</Text>
+                    </Box>
+                    </Flex>
+                    <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={3}>
                         <Text fontWeight={'bold'}>Title Tag</Text>
-                        <Text>{ele.isTitleInRange}</Text>
-                        <Text>{ele.title}</Text>
-                        <Text>Length : {ele.title.length}</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.isTitleInRange?'You have a title tag of optimal length (between 10 and 70 characters).':'Title charcters not have legth of 60 to 90 charcters'}</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.title}</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>Length : {ele.title.length}</Text>
                     </Box>
-                    <Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                    {
+                        ele.isTitleInRange?<FaCheck color='green'/>:<RxCross2 color='red'/>
+                    }
+                    </Flex>
+                    </Flex>
+
+                    <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
                         <Text fontWeight={'bold'}>Meta Description Tag</Text>
-                        <Text>{ele.isMetaDescriptionInRange}</Text>
-                        <Text>{ele.metaDescription}</Text>
-                        <Text>Length : {ele.metaDescription.length}</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.isMetaDescriptionInRange?'Your page has a meta description of optimal length (between 70 and 160 characters).':'Description charcters not have legth of 160 to 300 charcters'}</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.metaDescription}</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>Length : {ele.metaDescription.length}</Text>
                     </Box>
-                    <Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                    {
+                        ele.isTitleInRange?<FaCheck color='green'/>:<RxCross2 color='red'/>
+                    }
+                    </Flex>
+                    </Flex>
+                    <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
                         <Text fontWeight={'bold'}>Language</Text>
-                        <Text>Declared: English</Text>
-                        {/* <Text>{ele.metaDescription}</Text> */}
+                        <Text color={'#797979'} fontSize={'14px'}>Declared: English</Text>
                     </Box>
-                    <Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                    {
+                        ele.isTitleInRange?<FaCheck color='green'/>:<RxCross2 color='red'/>
+                    }
+                    </Flex>
+                    </Flex>
+                    <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
                         <Text fontWeight={'bold'}>H1 Header Tag Usage</Text>
-                        <Text>{ele.h1TagCount>0?'Your page has a H1 Tag.':'Your page dont have H1 Tag.'}</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.h1TagCount>0?'Your page has a H1 Tag.':'Your page dont have H1 Tag.'}</Text>
                     </Box>
-                    <Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                    {
+                        ele.h1TagCount>0?<FaCheck color='green'/>:<RxCross2 color='red'/>
+                    }
+                    </Flex>
+                    </Flex>
+                    <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
                         <Text fontWeight={'bold'}>H2 Header Tag Usage</Text>
-                        <Text>{ele.h2TagCount>0?'Your page has a H2 Tag.':'Your page dont have H2 Tag.'}</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.h2TagCount>0?'Your page has a H2 Tag.':'Your page dont have H2 Tag.'}</Text>
                     </Box>
-                    <Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                    {
+                        ele.h2TagCount>0?<FaCheck color='green'/>:<RxCross2 color='red'/>
+                    }
+                    </Flex>
+                    </Flex>
+                    <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
                         <Text fontWeight={'bold'}>H3 Header Tag Usage</Text>
-                        <Text>{ele.h3TagCount>0?'Your page has a H3 Tag.':'Your page dont have H3 Tag.'}</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.h3TagCount>0?'Your page has a H3 Tag.':'Your page dont have H3 Tag.'}</Text>
                     </Box>
-                    <Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                    {
+                        ele.h3TagCount>0?<FaCheck color='green'/>:<RxCross2 color='red'/>
+                    }
+                    </Flex>
+                    </Flex>
+                    <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
                         <Text fontWeight={'bold'}>H4 Header Tag Usage</Text>
-                        <Text>{ele.h4TagCount>0?'Your page has a H4 Tag.':'Your page dont have H4 Tag.'}</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.h4TagCount>0?'Your page has a H4 Tag.':'Your page dont have H4 Tag.'}</Text>
                     </Box>
-                    <Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                    {
+                        ele.h4TagCount>0?<FaCheck color='green'/>:<RxCross2 color='red'/>
+                    }
+                    </Flex>
+                    </Flex>
+                    <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
                         <Text fontWeight={'bold'}>H5 Header Tag Usage</Text>
-                        <Text>{ele.h5TagCount>0?'Your page has a H5 Tag.':'Your page dont have H5 Tag.'}</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.h5TagCount>0?'Your page has a H5 Tag.':'Your page dont have H5 Tag.'}</Text>
                     </Box>
-                    <Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                    {
+                        ele.h5TagCount>0?<FaCheck color='green'/>:<RxCross2 color='red'/>
+                    }
+                    </Flex>
+                    </Flex>
+                    <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
                         <Text fontWeight={'bold'}>H6 Header Tag Usage</Text>
-                        <Text>{ele.h6TagCount>0?'Your page has a H6 Tag.':'Your page dont have H6 Tag.'}</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.h6TagCount>0?'Your page has a H6 Tag.':'Your page dont have H6 Tag.'}</Text>
                     </Box>
-                    <Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                    {
+                        ele.h6TagCount>0?<FaCheck color='green'/>:<RxCross2 color='red'/>
+                    }
+                    </Flex>
+                    </Flex>
+                    <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
                         <Text fontWeight={'bold'}>Image Alt Attributes</Text>
-                        <Text>{ele.imagewithoutAlt>0?'You have images on your page that are missing Alt attributes':'You dont have images on your page that are missing Alt attributes.'}</Text>
-                        <Text>{`We found ${ele.imageCount} images on your page and 1 of them are missing the attribute.`}</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.imagewithoutAlt>0?'You have images on your page that are missing Alt attributes':'You dont have images on your page that are missing Alt attributes.'}</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{`We found ${ele.imageCount} images on your page and 1 of them are missing the attribute.`}</Text>
                     </Box>
-                    <Box>
+                      <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                      {
+                          ele.imagewithoutAlt>0?<RxCross2 color='red'/>:<FaCheck color='green'/>
+                      }
+                      </Flex>
+                      </Flex>
+                    <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
                         <Text fontWeight={'bold'}>Canonical Tag</Text>
-                        <Text>{ele.hasCanonical}</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.hasCanonical}</Text>
                         {/* <Text>{`We found ${ele.imageCount} images on your page and 1 of them are missing the attribute.`}</Text> */}
                     </Box>
-                    <Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                      {
+                          ele.hasCanonical>0?<FaCheck color='green'/>:<RxCross2 color='red'/>
+                      }
+                      </Flex>
+                      </Flex>
+                      <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
+                        <Text fontWeight={'bold'}>Hreflang Usage</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.hasHreflangAttribute?'Your page is making use of Hreflang attributes.':'Your page is not making use of Hreflang attributes.'}</Text>
+                        {/* <Text>{`We found ${ele.imageCount} images on your page and 1 of them are missing the attribute.`}</Text> */}
+                    </Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                      {
+                          ele.hasCanonical>0?<FaCheck color='green'/>:<RxCross2 color='red'/>
+                      }
+                      </Flex>
+                      </Flex>
+                    <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
                         <Text fontWeight={'bold'}>Noindex Tag Test</Text>
-                        <Text>{ele.hasCanonical}</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.hasNoIndexTag?'Your page is using the Noindex Tag which prevents indexing.':'Your page is not using the Noindex Tag which prevents indexing.'}</Text>
                     </Box>
-                    <Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                      {
+                          ele.hasNoIndexTag>0?<FaCheck color='green'/>:<RxCross2 color='red'/>
+                      }
+                      </Flex>
+                      </Flex>
+                    <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
                         <Text fontWeight={'bold'}>SSL Enabled</Text>
-                        <Text>{ele.hasCanonical}</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.sercure?'Website have SSL/HTTPS Certificate, SECURED':'Website is not secured'}</Text>
                     </Box>
-                    <Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                      {
+                          ele.sercure>0?<FaCheck color='green'/>:<RxCross2 color='red'/>
+                      }
+                      </Flex>
+                      </Flex>
+                    <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
                         <Text fontWeight={'bold'}>Analytics</Text>
-                        <Text>{ele.hasCanonical}</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.googleAnalytics?"Google Anylatics Present":"Google Anylatics is not present in the website"}</Text>
                     </Box>
-                    <Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                      {
+                          ele.googleAnalytics>0?<FaCheck color='green'/>:<RxCross2 color='red'/>
+                      }
+                      </Flex>
+                      </Flex>
+                    <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
                         <Text fontWeight={'bold'}>Schema.org Structured Data</Text>
-                        <Text>{ele.hasCanonical}</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.hasStructuredData.length > 0?"Website have structure data":'website dont have structured data'}</Text>
                     </Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                      {
+                          ele.hasStructuredData.length>0?<FaCheck color='green'/>:<RxCross2 color='red'/>
+                      }
+                      </Flex>
+                      </Flex>
+                    <Box lineHeight={'30px'} mt={5}>
+                        <Text fontWeight={'bold'}>SubPages</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{`Your website have ${ele.subpages} subpages`}</Text>
+                    </Box>
+                    <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
+                        <Text fontWeight={'bold'}>Robots.txt</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.hasRobots?'Website have robots.txt file':'Website dont have robots.txt file'}</Text>
+                    </Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                      {
+                          ele.hasRobots?<FaCheck color='green'/>:<RxCross2 color='red'/>
+                      }
+                      </Flex>
+                      </Flex>
                 </Box>
-                <Text>Total Images : {ele.imageCount}</Text>
-                <Text> Title SEO : {ele.isTitleInRange}</Text>
-                <Text>Desc : {ele.isMetaDescriptionInRange}</Text>
-                <Text> Robots txt : {ele.hasRobots}</Text>
-                <Text> Sitemap : {ele.hasSitemap}</Text>
-                <Text> Structure Data : {ele.hasStructuredData}</Text>
-                <Text>Social Media :  {ele.socialMediaStatus}</Text>
-                <Text> Subpages : {ele.subpages}</Text>
+
+
+
+
+
+                <Box mt={5} background={'white'} p={5} pl={8} borderRadius={5}>
+                <Text fontSize={'26px'}>Links</Text>
+                <LinksStatus data={ele}/>
+                <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
+                        <Text fontWeight={'bold'}>BackLinks</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.backlinks?'Your website have backlinks':'Your website dont have backlinks.'}</Text>
+                    </Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                      {
+                          ele.backlinks?<FaCheck color='green'/>:<RxCross2 color='red'/>
+                      }
+                      </Flex>
+                      </Flex>
+                    <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
+                        <Text fontWeight={'bold'}>External Links</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.externalLinks?'Your website have good External Linking':'Your website dont have good External Linking.'}</Text>
+                    </Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                      {
+                          ele.externalLinks?<FaCheck color='green'/>:<RxCross2 color='red'/>
+                      }
+                      </Flex>
+                      </Flex>
+                    <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
+                        <Text fontWeight={'bold'}>Internal Links</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.internalLinks?'Your website have good Internal Linking':'Your website dont have good Internal Linking.'}</Text>
+                    </Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                      {
+                          ele.internalLinks?<FaCheck color='green'/>:<RxCross2 color='red'/>
+                      }
+                      </Flex>
+                      </Flex>
+                    <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
+                        <Text fontWeight={'bold'}>Friendly Links</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.hasUnfriendlyLinks?'Your website have good friendly Links.':'Some of your link URLs do not appear friendly to humans or search engines.'}</Text>
+                    </Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                      {
+                          ele.hasUnfriendlyLinks?<FaCheck color='green'/>:<RxCross2 color='red'/>
+                      }
+                      </Flex>
+                      </Flex>
+                </Box>
+
+
+
+                <Box mt={5} background={'white'} p={5} pl={8} borderRadius={5}>
+                <Text fontSize={'26px'}>Usability</Text>
+                <UsabilityStatus data={ele}/>
+              
+                <Flex justifyContent={'space-between'}>
+                <Box lineHeight={'30px'} mt={5}>
+                        <Text fontWeight={'bold'}>Flash Used?</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.hasFlash?'Flash content has been used in your page':'No Flash content has been identified on your page.'}</Text>
+                    </Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                      {
+                          ele.hasFlash?<RxCross2 color='red'/>:<FaCheck color='green'/>
+                      }
+                      </Flex>
+                      </Flex>
+                    <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
+                        <Text fontWeight={'bold'}>iFrames Used?</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.hasIframes?'There are iFrames detected on your page.':'There are no iFrames detected on your page.'}</Text>
+                    </Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                      {
+                          ele.hasIframes?<RxCross2 color='red'/>:<FaCheck color='green'/>
+                      }
+                      </Flex>
+                      </Flex>
+                    <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
+                        <Text fontWeight={'bold'}>Favicon</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.hasFavicon?'Your page dont have a favicon.':'Your page has specified a favicon.'}</Text>
+                    </Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                      {
+                          ele.hasFavicon?<RxCross2 color='red'/>:<FaCheck color='green'/>
+                      }
+                      </Flex>
+                      </Flex>
+                    <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
+                        <Text fontWeight={'bold'}>Legible Font Sizes</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.hasSmallFont?'There is some text on your page that is small and may not be legible enough for particular users.':'Font Size of your page looks good'}</Text>
+                    </Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                      {
+                          ele.hasSmallFont?<RxCross2 color='red'/>:<FaCheck color='green'/>
+                      }
+                      </Flex>
+                      </Flex>
+                </Box>
+
+
+
+
+                <Box mt={5} background={'white'} p={5} pl={8} borderRadius={5}>
+                <Text fontSize={'26px'} ml={-5}>Social Results</Text>
+                {
+                 ele.socialMediaStatus ? (
+                    <>
+                    <Flex gap={'70px'} w={'90%'} m={'auto'}  mt={10} mb={10}>
+                        <Box w={'60%'} m ='auto'>
+                        <Text fontSize={'46px'} fontWeight={'700'} color={'blue.400'}>PERFECT</Text>
+                        </Box>
+                    <Box>
+                        <Text fontWeight={'600'} lineHeight={'36px'} color={"#505458"} fontSize={'24px'}>Your social is very good!</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>Congratulations, your social presence is strong and active. Social activity is important for customer communication, brand awareness and as a marketing channel to bring more visitors to your website. We recommend continued use of social campaigns to grow this further.</Text>
+                    </Box>
+                    </Flex>
+                    <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
+                      <Text fontWeight={'bold'}>Facebook Connected</Text>
+                      <Text color={'#797979'} fontSize={'14px'}>Your page has a link to a Facebook Page.</Text>
+                    </Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                      {
+                          ele.hasSmallFont?<RxCross2 color='red'/>:<FaCheck color='green'/>
+                      }
+                      </Flex>
+                      </Flex>
+                      <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
+                      <Text fontWeight={'bold'}>Instagram Connected</Text>
+                      <Text color={'#797979'} fontSize={'14px'}>Your page has a link to a Instagram Page.</Text>
+                    </Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                      {
+                          ele.hasSmallFont?<RxCross2 color='red'/>:<FaCheck color='green'/>
+                      }
+                      </Flex>
+                      </Flex>
+                      <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
+                        <Text fontWeight={'bold'}>Twitter Connected</Text>
+                       <Text color={'#797979'} fontSize={'14px'}>Your page has a link to a Twitter Page.</Text>
+                    </Box>
+                     <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                     {
+                         ele.hasSmallFont?<RxCross2 color='red'/>:<FaCheck color='green'/>
+                     }
+                     </Flex>
+                     </Flex>
+                     <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
+                     <Text fontWeight={'bold'}>Linkedin Connected</Text>
+                     <Text color={'#797979'} fontSize={'14px'}>Your page has a link to a Linkedin Page.</Text>
+                </Box>
+                 <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                 {
+                     ele.hasSmallFont?<RxCross2 color='red'/>:<FaCheck color='green'/>
+                 }
+                 </Flex>
+                 </Flex>
+                </>
+                      ) : (
+                        <>
+                        <Flex gap={'70px'} w={'90%'} m={'auto'}  mt={10} mb={10}>
+                        <Box w={'60%'} m ='auto'>
+                        <Text fontSize={'46px'} fontWeight={'700'} color={'blue.400'}> NOT PERFECT</Text>
+                        </Box>
+                    <Box>
+                        <Text fontWeight={'600'} lineHeight={'36px'} color={"#505458"} fontSize={'24px'}>Your social is not very good!</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>Congratulations, your social presence is strong and active. Social activity is important for customer communication, brand awareness and as a marketing channel to bring more visitors to your website. We recommend continued use of social campaigns to grow this further.</Text>
+                    </Box>
+                    </Flex>
+                        <Box lineHeight={'30px'} mt={5}>
+                        <Text fontWeight={'bold'}>Missing Social Media Platforms:</Text>
+                        {ele.missingPlatforms.map((platform, index) => (
+                            <Text key={index} color={'red'} fontSize={'14px'}>
+                                {platform}
+                            </Text>
+                        ))}
+                    </Box>
+                    </>
+                  )
+                }
+                </Box>
                 </Box>
                 </Box>
                 )

@@ -45,7 +45,16 @@ export const websiteSeo= async(req,res)=>{
         const text = $('p');
 
 
+
+        const hasHreflangAttribute = $('link[rel="alternate"][hreflang]').length > 0;
+
+        const hasNoindexTag = $('meta[name="robots"][content*="noindex"]').length > 0;
+
+        const backlinks = $('a[href^="http"], a[href^="https"]').length>0
         const langAttribute = $('html').attr('lang');
+
+        const internalLinks = $('a[href^="/"], a[href^="' + websiteUrl + '"]').length>0;
+        const externalLinks = $('a[href^="http"], a[href^="https"]').not('[href^="' + websiteUrl + '"]').length>0;
 
 // ************************************ Page Load Speed Analysis here *************************************************
 
@@ -165,7 +174,7 @@ export const websiteSeo= async(req,res)=>{
                 missingPlatforms.push(socialMediaPlatformNames[platform]);
             }
             }
-            let socialMediaStatus = 'All social media links are present on the website.';
+            let socialMediaStatus = true;
             if (missingPlatforms.length > 0) {
             socialMediaStatus = `${missingPlatforms.join(', ')} ${
                 missingPlatforms.length > 1 ? 'are' : 'is'
@@ -234,6 +243,38 @@ export const websiteSeo= async(req,res)=>{
     });
 
 
+    const unfriendlyLinks = [];
+
+    $('a[href]').each((index, element) => {
+        const href = $(element).attr('href');
+        if (href && containsUnfriendlyParameters(href)) {
+            unfriendlyLinks.push(href);
+        }
+    });
+
+    const hasUnfriendlyLinks = unfriendlyLinks.length > 0;
+
+
+    const hasFlash = $('object[type^="application/x-shockwave-flash"]').length > 0 ||
+    $('embed[type^="application/x-shockwave-flash"]').length > 0;
+
+        const iframesUsed = $('iframe').length;
+        const hasIframes = iframesUsed > 0;
+
+        const hasFavicon = $('link[rel="icon"], link[rel="shortcut icon"]').length > 0;
+
+        const smallFontElements = [];
+        const legibleFontSize = 16; // Adjust as needed
+
+        $('p, span, div, a, h1, h2, h3, h4, h5, h6').each((index, element) => {
+            const fontSize = parseInt($(element).css('font-size'), 10);
+            if (fontSize && fontSize < legibleFontSize) {
+                smallFontElements.push(element.tagName);
+            }
+        });
+
+        const hasSmallFont = smallFontElements.length > 0;
+
 
 
 // ***************************************** Analysis Report Here *******************************************
@@ -251,32 +292,47 @@ export const websiteSeo= async(req,res)=>{
           imageCount: totalImages,
           imagewithoutAlt:imagesWithoutAlt,
           pTagCount:text.length || 0,
-          isTitleInRange: isTitleInRange?'You have a title tag of optimal length (between 10 and 70 characters).':'Title charcters not have legth of 60 to 90 charcters',
-          isMetaDescriptionInRange: isMetaDescriptionInRange?'Your page has a meta description of optimal length (between 70 and 160 characters).':'Description charcters not have legth of 160 to 300 charcters',
-          sercure:isSecure?'Website have SSL/HTTPS Certificate, SECURED':"Website is not secured",
-          hasRobots:hasRobotsDisallowAll?'Website have robots.txt file':'Website dont have robots.txt file',
+          isTitleInRange: isTitleInRange,
+          isMetaDescriptionInRange: isMetaDescriptionInRange,
+          sercure:isSecure,
+          hasRobots:hasRobotsDisallowAll,
           hasSitemap:hasValidSitemap?'Sitemap found':"Website have no sitemap",
-          googleAnalytics:hasGoogleAnalytics?"Google Anylatics Present":"Google Anylatics is not present in the website",
+          googleAnalytics:hasGoogleAnalytics,
           hasCanonical:hasCanonicalLink?"website have Canonical Link":"Website dont have Canonical Link",
           googleConsole:verificationTagPresent?"Website have google serach console":'website dont have google serach console',
           textToHtmlRatio: textToHtmlRatio,
           visibleTextLength,
           totalHtmlLength,
-          socialMediaStatus,
+          socialMediaStatus:socialMediaStatus,
           missingPlatforms,
           subpages:subpages.length,
           // brokenLinks,
-          hasStructuredData: structuredData.length > 0?"Website have structure data":'website dont have structured data',
+          hasStructuredData: structuredData,
           canonicalUrls: Array.from(canonicalUrls),
           hasCanonicalUrls: canonicalUrls.size > 0,
           duplicateTextContent: duplicateTextContent,
           pageLoadTime: pageLoadTimeInSeconds,
-          langAttribute:langAttribute?'Your page is using the lang attribute':'Your page is not using the lang attribute.'
+          langAttribute:langAttribute?'Your page is using the lang attribute':'Your page is not using the lang attribute.',
+          hasHreflangAttribute:hasHreflangAttribute,
+          hasNoindexTag:hasNoindexTag,
+          backlinks:backlinks,
+          internalLinks:internalLinks,
+          externalLinks:externalLinks,
+          hasUnfriendlyLinks:hasUnfriendlyLinks?false:true,
+          hasFlash:hasFlash,
+          hasIframes:hasIframes,
+          hasFavicon:hasFavicon?false:true,
+          hasSmallFont:hasSmallFont,
         };
         res.json(seoAnalysis);
     }catch(err){
         console.log(err)
     }
+}
+
+
+function containsUnfriendlyParameters(url) {
+  return url.length > 100 || /[!@#$%^&*()_+{}\[\]:;<>,.?~]/.test(url);
 }
 
 
