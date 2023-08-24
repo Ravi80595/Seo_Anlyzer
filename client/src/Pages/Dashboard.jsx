@@ -45,7 +45,7 @@ return (
            <Box textAlign={'left'} p={3} fontFamily={'"Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif'}>
             <Box background={'white'} h={300} p={3}>
             <Text fontSize={'20px'}>Audit Results for {ele.WebsiteUrl}</Text>
-            <Heading mt={10} textAlign={'center'} >Score Here : 82/100</Heading>
+            {/* <Heading mt={10} textAlign={'center'} >Score Here : 82/100</Heading> */}
             <Score data={ele}/>
             </Box>
             <Box background={'white'} mt={4} borderRadius={5} p={5}>
@@ -103,7 +103,7 @@ return (
                     </Box>
                     <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
                     {
-                        ele.isTitleInRange?<FaCheck color='green'/>:<RxCross2 color='red'/>
+                        ele.language?<FaCheck color='green'/>:<RxCross2 color='red'/>
                     }
                     </Flex>
                     </Flex>
@@ -153,7 +153,7 @@ return (
                     </Box>
                     <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
                       {
-                          ele.hasCanonical>0?<FaCheck color='green'/>:<RxCross2 color='red'/>
+                          ele.hasCanonicalUrls?<FaCheck color='green'/>:<RxCross2 color='red'/>
                       }
                       </Flex>
                       </Flex>
