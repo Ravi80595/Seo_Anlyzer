@@ -5,6 +5,8 @@ import {FaCheck} from 'react-icons/fa'
 import {RxCross2} from 'react-icons/rx'
 import UsabilityStatus from '../Components/UsabilityStatus'
 import LinksStatus from '../Components/LinksStatus'
+import OnPageStatus from '../Components/OnPageStatus'
+import Score from '../Components/Score'
 
 
 
@@ -44,36 +46,20 @@ return (
             <Box background={'white'} h={300} p={3}>
             <Text fontSize={'20px'}>Audit Results for {ele.WebsiteUrl}</Text>
             <Heading mt={10} textAlign={'center'} >Score Here : 82/100</Heading>
+            <Score data={ele}/>
             </Box>
             <Box background={'white'} mt={4} borderRadius={5} p={5}>
                 <Box>
                     <Text fontSize={'26px'} fontWeight={'600'} color={'grey'}>Recommendations</Text>
-                    {/* <Text textAlign={'center'} >OnPage SEO</Text> */}
                 </Box>
-                <Box fontWeight={'600'} color={'#505458'} borderTop={'1px solid grey'} p={4} mt={3}>
-                <Text>SECURE : {ele.sercure}</Text>
+                {ele.isTitleInRange==false? <Text borderTop={'2px solid grey'} fontSize={'18px'} fontFamily={'"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif'} fontWeight={'600'} color={'#797979'} p={4} mt={3}>Your website title is not in proper Range. Make the length of title in between 60 -90 Charcters.</Text> :''}
+                {ele.isMetaDescriptionInRange==false? <Text borderTop={'2px solid grey'} fontSize={'18px'} fontFamily={'"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif'} fontWeight={'600'} color={'#797979'} p={4} mt={2}>Your website meta description is not in proper Range. Make the length of title in between 160 - 300 Charcters. </Text> :''}
+                {ele.sercure==false?<Text borderTop={'2px solid grey'} fontSize={'18px'} fontFamily={'"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif'} fontWeight={'600'} color={'#797979'} p={4} mt={3}>Your Website is not Secured. Add SSL/HTTPS Certificate to your website. </Text>:''}
+                {ele.h1TagCount==false? <Text borderTop={'2px solid grey'} fontSize={'18px'} fontFamily={'"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif'} fontWeight={'600'} color={'#797979'} p={4} mt={2}>Your Website don't have H1 tag. </Text> :''}
+                {ele.imagewithoutAlt>0?<Text borderTop={'2px solid grey'} fontSize={'18px'} fontFamily={'"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif'} fontWeight={'600'} color={'#797979'} p={4} mt={2}>Some of your images don't have alt attribute. </Text> :''}
+                {ele.hasCanonicalUrls==true? <Text borderTop={'2px solid grey'} fontSize={'18px'} fontFamily={'"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif'} fontWeight={'600'} color={'#797979'} p={4} mt={2}>Your website have canonical urls. </Text> :''}
+                {ele.googleAnalytics==false? <Text borderBottom={'2px solid grey'} borderTop={'2px solid grey'} fontSize={'18px'} fontFamily={'"Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif'} fontWeight={'600'} color={'#797979'} p={4} mt={2}>Your website don't have google analytics. </Text> :''}
                 </Box>
-                <Box fontWeight={'600'} color={'#505458'} borderTop={'1px solid grey'} p={4} mt={3}>
-                <Text> Image without alt : {ele.imagewithoutAlt}</Text>
-                </Box>
-                <Box fontWeight={'600'} color={'#505458'} borderTop={'1px solid grey'} p={4} mt={3}>
-                <Text>H1 Tags : {ele.h1TagCount}</Text>
-                </Box>
-                <Box fontWeight={'600'} color={'#505458'} borderTop={'1px solid grey'} p={4} mt={3}>
-                <Text>H6 Tags : {ele.h6TagCount}</Text>
-                </Box>
-                <Box fontWeight={'600'} color={'#505458'} borderTop={'1px solid grey'} p={4} mt={3}>
-                <Text> Canonical URL : {ele.canonicalUrls}</Text>
-                </Box>
-                <Box fontWeight={'600'} color={'#505458'} borderTop={'1px solid grey'} p={4} mt={3}>
-                <Text> Google Analytics : {ele.googleAnalytics}</Text>
-                </Box>
-                <Box fontWeight={'600'} color={'#505458'} borderTop={'1px solid grey'} p={4} mt={3}>
-                <Text> Google Console : {ele.googleConsole}</Text>
-                </Box>
-                </Box>
-
-
 
 
 
@@ -82,15 +68,7 @@ return (
 
                 <Box mt={5} background={'white'} p={5} pl={8} borderRadius={5}>
                     <Text fontSize={'26px'}>On-Page SEO Results</Text>
-                    <Flex gap={'70px'} w={'90%'} m={'auto'}  mt={10} mb={10}>
-                        <Box w={'60%'} m ='auto'>
-                        <Text fontSize={'46px'} fontWeight={'700'} color={'blue.400'}>PERFECT</Text>
-                        </Box>
-                    <Box>
-                        <Text fontWeight={'600'} lineHeight={'36px'} color={"#505458"} fontSize={'24px'}>Your social is very good!</Text>
-                        <Text color={'#797979'} fontSize={'14px'}>Congratulations, your social presence is strong and active. Social activity is important for customer communication, brand awareness and as a marketing channel to bring more visitors to your website. We recommend continued use of social campaigns to grow this further.</Text>
-                    </Box>
-                    </Flex>
+                    <OnPageStatus data={ele}/>
                     <Flex justifyContent={'space-between'}>
                     <Box lineHeight={'30px'} mt={3}>
                         <Text fontWeight={'bold'}>Title Tag</Text>
@@ -142,56 +120,16 @@ return (
                     </Flex>
                     <Flex justifyContent={'space-between'}>
                     <Box lineHeight={'30px'} mt={5}>
-                        <Text fontWeight={'bold'}>H2 Header Tag Usage</Text>
-                        <Text color={'#797979'} fontSize={'14px'}>{ele.h2TagCount>0?'Your page has a H2 Tag.':'Your page dont have H2 Tag.'}</Text>
+                        <Text fontWeight={'bold'}>H2-H6 Tags Usage</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.h2TagCount>0?`Your page has ${ele.h2tagCount} H2 Tag.`:'Your page dont have H2 Tag.'}</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.h2TagCount>0?`Your page has ${ele.h3tagCount} H3 Tag.`:'Your page dont have H3 Tag.'}</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.h2TagCount>0?`Your page has ${ele.h4tagCount} H4 Tag.`:'Your page dont have H4 Tag.'}</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.h2TagCount>0?`Your page has ${ele.h5tagCount} H5 Tag.`:'Your page dont have H5 Tag.'}</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.h2TagCount>0?`Your page has ${ele.h6tagCount} H6 Tag.`:'Your page dont have H6 Tag.'}</Text>
                     </Box>
                     <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
                     {
                         ele.h2TagCount>0?<FaCheck color='green'/>:<RxCross2 color='red'/>
-                    }
-                    </Flex>
-                    </Flex>
-                    <Flex justifyContent={'space-between'}>
-                    <Box lineHeight={'30px'} mt={5}>
-                        <Text fontWeight={'bold'}>H3 Header Tag Usage</Text>
-                        <Text color={'#797979'} fontSize={'14px'}>{ele.h3TagCount>0?'Your page has a H3 Tag.':'Your page dont have H3 Tag.'}</Text>
-                    </Box>
-                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
-                    {
-                        ele.h3TagCount>0?<FaCheck color='green'/>:<RxCross2 color='red'/>
-                    }
-                    </Flex>
-                    </Flex>
-                    <Flex justifyContent={'space-between'}>
-                    <Box lineHeight={'30px'} mt={5}>
-                        <Text fontWeight={'bold'}>H4 Header Tag Usage</Text>
-                        <Text color={'#797979'} fontSize={'14px'}>{ele.h4TagCount>0?'Your page has a H4 Tag.':'Your page dont have H4 Tag.'}</Text>
-                    </Box>
-                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
-                    {
-                        ele.h4TagCount>0?<FaCheck color='green'/>:<RxCross2 color='red'/>
-                    }
-                    </Flex>
-                    </Flex>
-                    <Flex justifyContent={'space-between'}>
-                    <Box lineHeight={'30px'} mt={5}>
-                        <Text fontWeight={'bold'}>H5 Header Tag Usage</Text>
-                        <Text color={'#797979'} fontSize={'14px'}>{ele.h5TagCount>0?'Your page has a H5 Tag.':'Your page dont have H5 Tag.'}</Text>
-                    </Box>
-                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
-                    {
-                        ele.h5TagCount>0?<FaCheck color='green'/>:<RxCross2 color='red'/>
-                    }
-                    </Flex>
-                    </Flex>
-                    <Flex justifyContent={'space-between'}>
-                    <Box lineHeight={'30px'} mt={5}>
-                        <Text fontWeight={'bold'}>H6 Header Tag Usage</Text>
-                        <Text color={'#797979'} fontSize={'14px'}>{ele.h6TagCount>0?'Your page has a H6 Tag.':'Your page dont have H6 Tag.'}</Text>
-                    </Box>
-                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
-                    {
-                        ele.h6TagCount>0?<FaCheck color='green'/>:<RxCross2 color='red'/>
                     }
                     </Flex>
                     </Flex>

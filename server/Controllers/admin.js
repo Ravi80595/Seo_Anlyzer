@@ -283,6 +283,7 @@ export const websiteSeo= async(req,res)=>{
           WebsiteUrl:websiteUrl,  
           title: title || 'No title tag',
           metaDescription: metaDescription || 'No meta description',
+          h1Tag:h1Tags.length>0?true:false,
           h1TagCount: h1Tags.length,
           h2TagCount: h2Tags.length,
           h3TagCount: h3Tags.length,
@@ -290,6 +291,7 @@ export const websiteSeo= async(req,res)=>{
           h5TagCount: h5Tags.length,
           h6TagCount: h6Tags.length,
           imageCount: totalImages,
+          imageAlt:imagesWithoutAlt>0?false:true,
           imagewithoutAlt:imagesWithoutAlt,
           pTagCount:text.length || 0,
           isTitleInRange: isTitleInRange,
@@ -309,7 +311,7 @@ export const websiteSeo= async(req,res)=>{
           // brokenLinks,
           hasStructuredData: structuredData,
           canonicalUrls: Array.from(canonicalUrls),
-          hasCanonicalUrls: canonicalUrls.size > 0,
+          hasCanonicalUrls: canonicalUrls.size > 0?false:true,
           duplicateTextContent: duplicateTextContent,
           pageLoadTime: pageLoadTimeInSeconds,
           langAttribute:langAttribute?'Your page is using the lang attribute':'Your page is not using the lang attribute.',
@@ -323,6 +325,7 @@ export const websiteSeo= async(req,res)=>{
           hasIframes:hasIframes,
           hasFavicon:hasFavicon?false:true,
           hasSmallFont:hasSmallFont,
+          language:true
         };
         res.json(seoAnalysis);
     }catch(err){
