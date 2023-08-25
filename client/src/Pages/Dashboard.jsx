@@ -16,12 +16,13 @@ const Dashboard = () => {
     const [url,setUrl]=useState('')
     const [data,setData]=useState([])
     const [loading,setLoading]=useState(false)
+    // const [websiteName,setWebsiteName]=useState('')
     // console.log(data,'data')
 
 
 const handleSubmit=()=>{
     setLoading(true)
-    axios.post('http://localhost:3001/admin/seo',{url:url})
+    axios.post('https://fierce-clam-necklace.cyclic.cloud/admin/seo',{url:url})
     .then((res)=>{
         console.log(res,'result')
         setLoading(false)
@@ -29,6 +30,19 @@ const handleSubmit=()=>{
     })
 }
 
+// if(url){
+
+//     const urlParts = url.split('/');
+//     const websiteNameParts = urlParts[2].split('.');
+//     websiteNameParts.splice(0, 1);
+//     setWebsiteName websiteNameParts.join('.');
+    
+// }
+
+// const urlObject = new URL(url);
+//   const websiteName = urlObject.hostname;
+
+// return <p>Website Name: {websiteName}</p>;
 
 
 return (
@@ -41,10 +55,10 @@ return (
     <Box mt={4} borderRadius={5} h={'auto'} background={'white'}>
         {loading?'Analyzing website please wait.........':data.map((ele)=>{
            return( 
-            <Box background={'#e9e9e9'}>
+            <Box background={'#e9e9e9'} key={ele.title}>
            <Box textAlign={'left'} p={3} fontFamily={'"Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif'}>
             <Box background={'white'} h={300} p={3}>
-            <Text fontSize={'20px'}>Audit Results for {ele.WebsiteUrl}</Text>
+            <Text fontSize={'20px'}>Audit Results for -  {ele.websiteUrl}</Text>
             {/* <Heading mt={10} textAlign={'center'} >Score Here : 82/100</Heading> */}
             <Score data={ele}/>
             </Box>
@@ -405,7 +419,7 @@ return (
                         </Box>
                     <Box>
                         <Text fontWeight={'600'} lineHeight={'36px'} color={"#505458"} fontSize={'24px'}>Your social is not very good!</Text>
-                        <Text color={'#797979'} fontSize={'14px'}>Congratulations, your social presence is strong and active. Social activity is important for customer communication, brand awareness and as a marketing channel to bring more visitors to your website. We recommend continued use of social campaigns to grow this further.</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>Your social media presence demonstrates a reasonable level of activity. To maximize its impact, consider refining content, posting consistently, and engaging with your audience. Social media offers valuable channels for customer interaction, brand exposure, and marketing. With strategic efforts, you can harness its potential to achieve more significant online visibility and engagement.</Text>
                     </Box>
                     </Flex>
                         <Box lineHeight={'30px'} mt={5}>
