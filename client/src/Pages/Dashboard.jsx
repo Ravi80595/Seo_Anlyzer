@@ -20,6 +20,11 @@ const Dashboard = () => {
     const [showText1, setShowText1] = useState(false);
     const [showText2, setShowText2] = useState(false);
     const [showText3, setShowText3] = useState(false);
+    const [showText4, setShowText4] = useState(false);
+    const [showText5, setShowText5] = useState(false);
+    const [showText6, setShowText6] = useState(false);
+    const [showText7, setShowText7] = useState(false);
+    const [showText8, setShowText8] = useState(false);
 
     const toggleVisibility = target => {
         if (target === 'text1') {
@@ -28,7 +33,18 @@ const Dashboard = () => {
             setShowText2(prevState => !prevState);
         } else if(target === 'text3'){
             setShowText3(prevState => !prevState)
+        } else if(target === 'text4'){
+            setShowText4(prevState => !prevState)
+        } else if(target === 'text5'){
+            setShowText5(prevState => !prevState)
+        } else if(target === 'text6'){
+            setShowText6(prevState => !prevState)
+        } else if(target === 'text7'){
+            setShowText7(prevState=> !prevState)
+        } else if(target === 'text8'){
+            setShowText8(prevState =>!prevState)
         }
+        
     };
 
     console.log(data,'data')
@@ -144,7 +160,7 @@ return (
                             Make sure your page has a Meta Description included, and is at an optimum length (between 70 and 160 characters). Make your Meta Description text interesting and easy to comprehend. Use phrases and keywords relevant to the page and user that you would like to rank for. Meta Description is normally available to be updated in your CMS.
                         </div>
                     )}
-                    <Flex justifyContent={'space-between'}>
+                    <Flex onClick={() => toggleVisibility('text4')} cursor='pointer' p={2} _hover={{backgroundColor:'#fafafa'}}  justifyContent={'space-between'}>
                     <Box lineHeight={'30px'} mt={5}>
                         <Text fontWeight={'bold'}>H1 Header Tag Usage</Text>
                         <Text color={'#797979'} fontSize={'14px'}>{ele.h1TagCount>0?'Your page has a H1 Tag.':'Your page dont have H1 Tag.'}</Text>
@@ -155,7 +171,14 @@ return (
                     }
                     </Flex>
                     </Flex>
-                    <Flex justifyContent={'space-between'}>
+                    {showText4 && (
+                        <div className="hidden-text">
+                            Meta Description is another important HTML element that explains more descriptively to Search Engines what your page is about. Meta Descriptions are often used as the text snippets used in Search Engine results (though Search Engines are inceasingly generating these themselves) and can help further signal to Search Engines what keywords your page should rank for.
+                            <br />
+                            Make sure your page has a Meta Description included, and is at an optimum length (between 70 and 160 characters). Make your Meta Description text interesting and easy to comprehend. Use phrases and keywords relevant to the page and user that you would like to rank for. Meta Description is normally available to be updated in your CMS.
+                        </div>
+                    )}
+                    <Flex onClick={() => toggleVisibility('text5')} cursor='pointer' p={2} _hover={{backgroundColor:'#fafafa'}} justifyContent={'space-between'}>
                     <Box lineHeight={'30px'} mt={5}>
                         <Text fontWeight={'bold'}>H2-H6 Tags Usage</Text>
                         <Text color={'#797979'} fontSize={'14px'}>{ele.h2TagCount>0?`Your page has  ${ele.h2TagCount} H2 Tag.`:'Your page dont have H2 Tag.'}</Text>
@@ -170,7 +193,14 @@ return (
                     }
                     </Flex>
                     </Flex>
-                    <Flex justifyContent={'space-between'}>
+                    {showText5 && (
+                        <div className="hidden-text">
+                            Meta Description is another important HTML element that explains more descriptively to Search Engines what your page is about. Meta Descriptions are often used as the text snippets used in Search Engine results (though Search Engines are inceasingly generating these themselves) and can help further signal to Search Engines what keywords your page should rank for.
+                            <br />
+                            Make sure your page has a Meta Description included, and is at an optimum length (between 70 and 160 characters). Make your Meta Description text interesting and easy to comprehend. Use phrases and keywords relevant to the page and user that you would like to rank for. Meta Description is normally available to be updated in your CMS.
+                        </div>
+                    )}
+                    <Flex onClick={() => toggleVisibility('text6')} cursor='pointer' p={2} _hover={{backgroundColor:'#fafafa'}} justifyContent={'space-between'}>
                     <Box lineHeight={'30px'} mt={5}>
                         <Text fontWeight={'bold'}>Image Alt Attributes</Text>
                         <Text color={'#797979'} fontSize={'14px'}>{ele.imagewithoutAlt>0?'You have images on your page that are missing Alt attributes':'You dont have images on your page that are missing Alt attributes.'}</Text>
@@ -182,7 +212,14 @@ return (
                       }
                       </Flex>
                       </Flex>
-                    <Flex justifyContent={'space-between'}>
+                      {showText6 && (
+                        <div className="hidden-text">
+                            Meta Description is another important HTML element that explains more descriptively to Search Engines what your page is about. Meta Descriptions are often used as the text snippets used in Search Engine results (though Search Engines are inceasingly generating these themselves) and can help further signal to Search Engines what keywords your page should rank for.
+                            <br />
+                            Make sure your page has a Meta Description included, and is at an optimum length (between 70 and 160 characters). Make your Meta Description text interesting and easy to comprehend. Use phrases and keywords relevant to the page and user that you would like to rank for. Meta Description is normally available to be updated in your CMS.
+                        </div>
+                    )}
+                    <Flex onClick={() => toggleVisibility('text7')} cursor='pointer' p={2} _hover={{backgroundColor:'#fafafa'}} justifyContent={'space-between'}>
                     <Box lineHeight={'30px'} mt={5}>
                         <Text fontWeight={'bold'}>Canonical Tag</Text>
                         <Text color={'#797979'} fontSize={'14px'}>{ele.hasCanonical}</Text>
@@ -194,7 +231,14 @@ return (
                       }
                       </Flex>
                       </Flex>
-                      <Flex justifyContent={'space-between'}>
+                      {showText7 && (
+                        <div className="hidden-text">
+                            Meta Description is another important HTML element that explains more descriptively to Search Engines what your page is about. Meta Descriptions are often used as the text snippets used in Search Engine results (though Search Engines are inceasingly generating these themselves) and can help further signal to Search Engines what keywords your page should rank for.
+                            <br />
+                            Make sure your page has a Meta Description included, and is at an optimum length (between 70 and 160 characters). Make your Meta Description text interesting and easy to comprehend. Use phrases and keywords relevant to the page and user that you would like to rank for. Meta Description is normally available to be updated in your CMS.
+                        </div>
+                    )}
+                      <Flex onClick={() => toggleVisibility('text8')} cursor='pointer' p={2} _hover={{backgroundColor:'#fafafa'}} justifyContent={'space-between'}>
                     <Box lineHeight={'30px'} mt={5}>
                         <Text fontWeight={'bold'}>Hreflang Usage</Text>
                         <Text color={'#797979'} fontSize={'14px'}>{ele.hasHreflangAttribute?'Your page is making use of Hreflang attributes.':'Your page is not making use of Hreflang attributes.'}</Text>
@@ -206,6 +250,13 @@ return (
                       }
                       </Flex>
                       </Flex>
+                      {showText8 && (
+                        <div className="hidden-text">
+                            Meta Description is another important HTML element that explains more descriptively to Search Engines what your page is about. Meta Descriptions are often used as the text snippets used in Search Engine results (though Search Engines are inceasingly generating these themselves) and can help further signal to Search Engines what keywords your page should rank for.
+                            <br />
+                            Make sure your page has a Meta Description included, and is at an optimum length (between 70 and 160 characters). Make your Meta Description text interesting and easy to comprehend. Use phrases and keywords relevant to the page and user that you would like to rank for. Meta Description is normally available to be updated in your CMS.
+                        </div>
+                    )}
                     <Flex justifyContent={'space-between'}>
                     <Box lineHeight={'30px'} mt={5}>
                         <Text fontWeight={'bold'}>Noindex Tag Test</Text>
