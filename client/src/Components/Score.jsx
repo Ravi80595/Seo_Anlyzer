@@ -34,7 +34,7 @@ return (
 </Box>
 <div className="tv-container">
 <div className='tv-background'>
-<img className="screenshot-overlay"  src={`data:image/png;base64,${data.screenshotBase64}`} alt="r" />
+<img className="screenshot-overlay"  src={`data:image/png;base64,${data.screenshotBase64}`} alt="Home" />
 </div>
 </div>
 </Flex>
