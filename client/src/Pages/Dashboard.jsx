@@ -346,8 +346,7 @@ Google Analytics is a web analytics service by Google that tracks and reports we
                       </Flex>
                       {showText13 && (
                         <div className="hidden-text">
-                       
-The robots.txt file is a text file placed on a website's server to communicate with web crawlers and search engines. It provides instructions on which parts of the site should be crawled and indexed and which parts should not. By specifying rules for user agents (crawlers), the robots.txt file controls access to specific pages or directories. This file is crucial for managing search engine bots' behavior and ensuring that sensitive or private content isn't indexed. Properly configuring the robots.txt file can enhance website security, prevent duplicate content issues, and improve overall SEO performance.
+                        The robots.txt file is a text file placed on a website's server to communicate with web crawlers and search engines. It provides instructions on which parts of the site should be crawled and indexed and which parts should not. By specifying rules for user agents (crawlers), the robots.txt file controls access to specific pages or directories. This file is crucial for managing search engine bots' behavior and ensuring that sensitive or private content isn't indexed. Properly configuring the robots.txt file can enhance website security, prevent duplicate content issues, and improve overall SEO performance.
                         </div>
                     )}
                 </Box>

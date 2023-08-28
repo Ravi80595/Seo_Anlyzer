@@ -302,7 +302,7 @@ export const websiteSeo= async(req,res)=>{
       const page = await browser.newPage();
       await page.goto(websiteUrl, { waitUntil: 'networkidle2', timeout: 60000 });
       const screenshotData = await page.screenshot();
-      screenshotBase64 = screenshotData.toString('base64'); // Capture screenshot
+      screenshotBase64 = screenshotData.toString('base64'); 
       console.log('Screenshot taken successfully.');
       await browser.close();
     } catch (error) {
