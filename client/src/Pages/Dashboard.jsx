@@ -188,11 +188,9 @@ return (
                     </Flex>
                     {showText4 && (
                         <div className="hidden-text">
-                            Meta Description is another important HTML element that explains more descriptively to Search Engines what your page is about. Meta Descriptions are often used as the text snippets used in Search Engine results (though Search Engines are inceasingly generating these themselves) and can help further signal to Search Engines what keywords your page should rank for.
-                            <br />
-                            Make sure your page has a Meta Description included, and is at an optimum length (between 70 and 160 characters). Make your Meta Description text interesting and easy to comprehend. Use phrases and keywords relevant to the page and user that you would like to rank for. Meta Description is normally available to be updated in your CMS.
+                           The h1 tag in a website serves as the top-level heading, showcasing the main title or topic. It enhances content organization, aids users in quickly grasping page relevance, assists accessibility tools, and contributes to search engine optimization (SEO) by providing a clear hierarchy of content. Properly utilizing h1 tags improves user experience and ensures better understanding of page context for both humans and search engines, ultimately leading to a more effectively designed and discoverable website.
                         </div>
-                    )}
+                    )}  
                     <Flex onClick={() => toggleVisibility('text5')} cursor='pointer' p={2} _hover={{backgroundColor:'#fafafa'}} justifyContent={'space-between'}>
                     <Box lineHeight={'30px'} mt={5}>
                         <Text fontWeight={'bold'}>H2-H6 Tags Usage</Text>
@@ -210,9 +208,7 @@ return (
                     </Flex>
                     {showText5 && (
                         <div className="hidden-text">
-                            Meta Description is another important HTML element that explains more descriptively to Search Engines what your page is about. Meta Descriptions are often used as the text snippets used in Search Engine results (though Search Engines are inceasingly generating these themselves) and can help further signal to Search Engines what keywords your page should rank for.
-                            <br />
-                            Make sure your page has a Meta Description included, and is at an optimum length (between 70 and 160 characters). Make your Meta Description text interesting and easy to comprehend. Use phrases and keywords relevant to the page and user that you would like to rank for. Meta Description is normally available to be updated in your CMS.
+                            Heading tags h2 to h6 are used for various levels of subheadings in a webpage. They structure content, aid readability, and provide hierarchy, enhancing user experience and SEO. Each tag represents a decreasing level of importance, with h2 being a subheading of h1, and so on. These tags help break down content into manageable sections, making it easier for visitors to scan and comprehend information. Just like h1, proper usage of subheading tags contributes to better accessibility, content organization, and search engine rankings.
                         </div>
                     )}
                     <Flex onClick={() => toggleVisibility('text6')} cursor='pointer' p={2} _hover={{backgroundColor:'#fafafa'}} justifyContent={'space-between'}>
@@ -229,9 +225,7 @@ return (
                       </Flex>
                       {showText6 && (
                         <div className="hidden-text">
-                            Meta Description is another important HTML element that explains more descriptively to Search Engines what your page is about. Meta Descriptions are often used as the text snippets used in Search Engine results (though Search Engines are inceasingly generating these themselves) and can help further signal to Search Engines what keywords your page should rank for.
-                            <br />
-                            Make sure your page has a Meta Description included, and is at an optimum length (between 70 and 160 characters). Make your Meta Description text interesting and easy to comprehend. Use phrases and keywords relevant to the page and user that you would like to rank for. Meta Description is normally available to be updated in your CMS.
+                            Image alt attributes provide textual descriptions for images on a webpage. They aid accessibility, assisting visually impaired users and search engines in understanding image content. Alt attributes should be concise, descriptive, and relevant, conveying the image's purpose or context. This enhances usability, SEO, and ensures a more inclusive browsing experience for all users.
                         </div>
                     )}
                     <Flex onClick={() => toggleVisibility('text7')} cursor='pointer' p={2} _hover={{backgroundColor:'#fafafa'}} justifyContent={'space-between'}>
@@ -248,9 +242,7 @@ return (
                       </Flex>
                       {showText7 && (
                         <div className="hidden-text">
-                            Meta Description is another important HTML element that explains more descriptively to Search Engines what your page is about. Meta Descriptions are often used as the text snippets used in Search Engine results (though Search Engines are inceasingly generating these themselves) and can help further signal to Search Engines what keywords your page should rank for.
-                            <br />
-                            Make sure your page has a Meta Description included, and is at an optimum length (between 70 and 160 characters). Make your Meta Description text interesting and easy to comprehend. Use phrases and keywords relevant to the page and user that you would like to rank for. Meta Description is normally available to be updated in your CMS.
+                            The canonical tag is an HTML element that signals search engines about the preferred version of a webpage when multiple similar versions exist. It prevents duplicate content issues, consolidates page authority, and improves SEO. It's particularly useful when duplicate content arises from various URLs pointing to the same or similar content. The canonical tag helps search engines index the right page and avoids diluting the site's search ranking.
                         </div>
                     )}
                       <Flex onClick={() => toggleVisibility('text8')} cursor='pointer' p={2} _hover={{backgroundColor:'#fafafa'}} justifyContent={'space-between'}>
@@ -267,9 +259,8 @@ return (
                       </Flex>
                       {showText8 && (
                         <div className="hidden-text">
-                            Meta Description is another important HTML element that explains more descriptively to Search Engines what your page is about. Meta Descriptions are often used as the text snippets used in Search Engine results (though Search Engines are inceasingly generating these themselves) and can help further signal to Search Engines what keywords your page should rank for.
-                            <br />
-                            Make sure your page has a Meta Description included, and is at an optimum length (between 70 and 160 characters). Make your Meta Description text interesting and easy to comprehend. Use phrases and keywords relevant to the page and user that you would like to rank for. Meta Description is normally available to be updated in your CMS.
+                            
+                        The hreflang tag is a code snippet placed in a webpage's HTML that informs search engines about alternate language or regional versions of the same content. It enhances user experience by directing visitors to the version of the content that matches their language or region. This tag helps prevent content duplication issues, boosts SEO for multilingual websites, and ensures that the right audience is directed to the right content variant.
                         </div>
                     )}
                     <Flex onClick={() => toggleVisibility('text9')} cursor='pointer' p={2} _hover={{backgroundColor:'#fafafa'}} justifyContent={'space-between'}>
@@ -285,9 +276,8 @@ return (
                       </Flex>
                       {showText9 && (
                         <div className="hidden-text">
-                            Meta Description is another important HTML element that explains more descriptively to Search Engines what your page is about. Meta Descriptions are often used as the text snippets used in Search Engine results (though Search Engines are inceasingly generating these themselves) and can help further signal to Search Engines what keywords your page should rank for.
-                            <br />
-                            Make sure your page has a Meta Description included, and is at an optimum length (between 70 and 160 characters). Make your Meta Description text interesting and easy to comprehend. Use phrases and keywords relevant to the page and user that you would like to rank for. Meta Description is normally available to be updated in your CMS.
+                          
+The noindex tag is an HTML attribute used to instruct search engines not to index a specific webpage or its content. It's employed when you want to keep certain pages hidden from search engine results. This tag is useful for private or sensitive pages, duplicate content, or temporary pages that you don't want to appear in search engine listings. Implementing the noindex tag prevents these pages from affecting your site's SEO and ensures that only relevant and valuable content is indexed and displayed in search results.
                         </div>
                     )}
                     <Flex onClick={() => toggleVisibility('text10')} cursor='pointer' p={2} _hover={{backgroundColor:'#fafafa'}} justifyContent={'space-between'}>
@@ -303,9 +293,7 @@ return (
                       </Flex>
                       {showText10 && (
                         <div className="hidden-text">
-                            Meta Description is another important HTML element that explains more descriptively to Search Engines what your page is about. Meta Descriptions are often used as the text snippets used in Search Engine results (though Search Engines are inceasingly generating these themselves) and can help further signal to Search Engines what keywords your page should rank for.
-                            <br />
-                            Make sure your page has a Meta Description included, and is at an optimum length (between 70 and 160 characters). Make your Meta Description text interesting and easy to comprehend. Use phrases and keywords relevant to the page and user that you would like to rank for. Meta Description is normally available to be updated in your CMS.
+                            SSL (Secure Sockets Layer) enabled means that a website has implemented a security protocol to establish an encrypted and secure connection between the user's browser and the website's server. This encryption ensures that data transferred between the user and the server remains private and protected from potential eavesdropping or tampering. SSL-enabled websites are indicated by "https://" in the URL and a padlock icon in the browser's address bar. This security measure enhances user trust, safeguards sensitive information (like passwords and payment details), and positively impacts SEO rankings as search engines prioritize secure websites.
                         </div>
                     )}
                     <Flex onClick={() => toggleVisibility('text11')} cursor='pointer' p={2} _hover={{backgroundColor:'#fafafa'}} justifyContent={'space-between'}>
@@ -321,9 +309,8 @@ return (
                       </Flex>
                       {showText11 && (
                         <div className="hidden-text">
-                            Meta Description is another important HTML element that explains more descriptively to Search Engines what your page is about. Meta Descriptions are often used as the text snippets used in Search Engine results (though Search Engines are inceasingly generating these themselves) and can help further signal to Search Engines what keywords your page should rank for.
-                            <br />
-                            Make sure your page has a Meta Description included, and is at an optimum length (between 70 and 160 characters). Make your Meta Description text interesting and easy to comprehend. Use phrases and keywords relevant to the page and user that you would like to rank for. Meta Description is normally available to be updated in your CMS.
+                            
+Google Analytics is a web analytics service by Google that tracks and reports website traffic and user behavior. It provides valuable insights into how visitors interact with a website, including pageviews, user demographics, session duration, referral sources, and more. By analyzing these metrics, website owners can make informed decisions to improve user experience, content, and marketing strategies. Google Analytics offers data visualization, conversion tracking, and goal setting to measure site performance. It's an essential tool for understanding audience preferences, optimizing website performance, and enhancing digital marketing efforts.
                         </div>
                     )}
                     <Flex onClick={() => toggleVisibility('text12')} cursor='pointer' p={2} _hover={{backgroundColor:'#fafafa'}} justifyContent={'space-between'}>
@@ -339,9 +326,7 @@ return (
                       </Flex>
                       {showText12 && (
                         <div className="hidden-text">
-                            Meta Description is another important HTML element that explains more descriptively to Search Engines what your page is about. Meta Descriptions are often used as the text snippets used in Search Engine results (though Search Engines are inceasingly generating these themselves) and can help further signal to Search Engines what keywords your page should rank for.
-                            <br />
-                            Make sure your page has a Meta Description included, and is at an optimum length (between 70 and 160 characters). Make your Meta Description text interesting and easy to comprehend. Use phrases and keywords relevant to the page and user that you would like to rank for. Meta Description is normally available to be updated in your CMS.
+                           Schema.org structured data is a standardized markup language used to provide context and meaning to content on web pages. It uses specific tags to help search engines understand the type of content and its attributes, such as events, products, reviews, and more. Implementing structured data enhances search results by enabling rich snippets, which display additional information like ratings, prices, and dates directly in search listings. This markup improves the visibility and relevance of content in search engines, resulting in better user engagement and increased click-through rates.
                         </div>
                     )}
                     <Box lineHeight={'30px'} mt={5}>
@@ -361,9 +346,8 @@ return (
                       </Flex>
                       {showText13 && (
                         <div className="hidden-text">
-                            Meta Description is another important HTML element that explains more descriptively to Search Engines what your page is about. Meta Descriptions are often used as the text snippets used in Search Engine results (though Search Engines are inceasingly generating these themselves) and can help further signal to Search Engines what keywords your page should rank for.
-                            <br />
-                            Make sure your page has a Meta Description included, and is at an optimum length (between 70 and 160 characters). Make your Meta Description text interesting and easy to comprehend. Use phrases and keywords relevant to the page and user that you would like to rank for. Meta Description is normally available to be updated in your CMS.
+                       
+The robots.txt file is a text file placed on a website's server to communicate with web crawlers and search engines. It provides instructions on which parts of the site should be crawled and indexed and which parts should not. By specifying rules for user agents (crawlers), the robots.txt file controls access to specific pages or directories. This file is crucial for managing search engine bots' behavior and ensuring that sensitive or private content isn't indexed. Properly configuring the robots.txt file can enhance website security, prevent duplicate content issues, and improve overall SEO performance.
                         </div>
                     )}
                 </Box>
