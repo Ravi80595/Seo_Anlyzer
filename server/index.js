@@ -21,9 +21,9 @@ app.use(cors({
     origin: '*'
 }));
 
-// app.use(cors({
-//     origin: 'https://seo-anlyzer.vercel.app'
-// }));
+app.use(cors({
+    origin: 'https://seo-anlyzer.vercel.app'
+}));
 
 // app.use("/",(req,res)=>{
 //     res.status(200).send("Welcome To SEO anylazer api")
