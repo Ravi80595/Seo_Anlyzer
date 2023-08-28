@@ -16,7 +16,6 @@ const Dashboard = () => {
     const [url,setUrl]=useState('')
     const [data,setData]=useState([])
     const [loading,setLoading]=useState(false)
-
     const [showText1, setShowText1] = useState(false);
     const [showText2, setShowText2] = useState(false);
     const [showText3, setShowText3] = useState(false);
@@ -69,7 +68,7 @@ const Dashboard = () => {
 
 const handleSubmit=()=>{
     setLoading(true)
-    axios.post('https://fierce-clam-necklace.cyclic.cloud/admin/seo',{url:url})
+    axios.post('http://localhost:3001/admin/seo',{url:url})
     .then((res)=>{
         console.log(res,'result')
         setLoading(false)
