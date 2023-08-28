@@ -1,0 +1,9 @@
+.hidden-text{
+    color: #797979;
+    font-size: 14px;
+    font-family: 'Noto Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    border: 1px solid rgb(235, 235, 235);
+    padding: 10px;
+    background-color: #fafafa;
+}
+

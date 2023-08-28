@@ -1,10 +1,10 @@
 import axios from "axios";
 import cheerio from "cheerio";
-
+import puppeteer from 'puppeteer'
 
 export const websiteSeo= async(req,res)=>{
     const websiteUrl = req.body.url;
-    console.log(req.body.url,'req')
+    // console.log(req.body.url,'req')
     try{
         const response = await axios.get(websiteUrl);
         const html = response.data;
@@ -48,7 +48,7 @@ export const websiteSeo= async(req,res)=>{
 
         const hasHreflangAttribute = $('link[rel="alternate"][hreflang]').length > 0;
 
-        const hasNoindexTag = $('meta[name="robots"][content*="noindex"]').length > 0;
+        const hasNoindexTag = $('meta[name="robots"][content*="noindex"]').length;
 
         const backlinks = $('a[href^="http"], a[href^="https"]').length>0
         const langAttribute = $('html').attr('lang');
@@ -56,15 +56,19 @@ export const websiteSeo= async(req,res)=>{
         const internalLinks = $('a[href^="/"], a[href^="' + websiteUrl + '"]').length>0;
         const externalLinks = $('a[href^="http"], a[href^="https"]').not('[href^="' + websiteUrl + '"]').length>0;
 
+
+
+
+
 // ************************************ Page Load Speed Analysis here *************************************************
 
-         const startTime = Date.now();
+        //  const startTime = Date.now();
             
-         // Make a new axios request to measure page load time
-         const pageLoadResponse = await axios.get(websiteUrl);
-         const endTime = Date.now();
-         const pageLoadTimeInMilliseconds  = endTime - startTime;
-         const pageLoadTimeInSeconds = pageLoadTimeInMilliseconds / 1000;
+        //  // Make a new axios request to measure page load time
+        //  const pageLoadResponse = await axios.get(websiteUrl);
+        //  const endTime = Date.now();
+        //  const pageLoadTimeInMilliseconds  = endTime - startTime;
+        //  const pageLoadTimeInSeconds = pageLoadTimeInMilliseconds / 1000;
 
 // ************************************  Subpages Checks here *************************************************
 
@@ -116,9 +120,14 @@ export const websiteSeo= async(req,res)=>{
           const verificationTagPresent = googleVerificationTags.some(tag => {
             return $('meta[name="' + tag + '"]').length > 0;
           });
-        const hasGoogleAnalytics = $('head script[src*="google-analytics.com/analytics.js"]').length > 0;
 
+      
 
+        const hasGoogleAnalytics = $('head script[src*="google-analytics.com/analytics.js"]').length>0;
+
+        const hasGoogleAnalyticsComment = $('head').html().includes('<!-- Google Analytics snippet added by Site Kit -->');
+
+        const isGoogleAnalyticsPresent = hasGoogleAnalytics || hasGoogleAnalyticsComment;
 
  // ************************************  Canonical Links Checks here *************************************************
 
@@ -277,6 +286,17 @@ export const websiteSeo= async(req,res)=>{
 
 
 
+      const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto(websiteUrl, { waitUntil: 'networkidle2' });
+
+    const screenshotData = await page.screenshot();
+    const screenshotBase64 = screenshotData.toString('base64');
+
+    await browser.close();
+
+
+
 // ***************************************** Analysis Report Here *******************************************
     
     const seoAnalysis = {
@@ -299,7 +319,7 @@ export const websiteSeo= async(req,res)=>{
           sercure:isSecure,
           hasRobots:hasRobotsDisallowAll,
           hasSitemap:hasValidSitemap?'Sitemap found':"Website have no sitemap",
-          googleAnalytics:hasGoogleAnalytics,
+          googleAnalytics:isGoogleAnalyticsPresent,
           hasCanonical:hasCanonicalLink?"website have Canonical Link":"Website dont have Canonical Link",
           googleConsole:verificationTagPresent?"Website have google serach console":'website dont have google serach console',
           textToHtmlRatio: textToHtmlRatio,
@@ -313,10 +333,10 @@ export const websiteSeo= async(req,res)=>{
           canonicalUrls: Array.from(canonicalUrls),
           hasCanonicalUrls: canonicalUrls.size > 0?false:true,
           duplicateTextContent: duplicateTextContent,
-          pageLoadTime: pageLoadTimeInSeconds,
+          // pageLoadTime: pageLoadTimeInSeconds,
           langAttribute:langAttribute?'Your page is using the lang attribute':'Your page is not using the lang attribute.',
           hasHreflangAttribute:hasHreflangAttribute,
-          hasNoindexTag:hasNoindexTag,
+          hasNoindexTag:hasNoindexTag>0?false:true,
           backlinks:backlinks,
           internalLinks:internalLinks,
           externalLinks:externalLinks,
@@ -325,7 +345,8 @@ export const websiteSeo= async(req,res)=>{
           hasIframes:hasIframes,
           hasFavicon:hasFavicon?false:true,
           hasSmallFont:hasSmallFont,
-          language:true
+          language:true,
+          screenshotBase64:screenshotBase64
         };
         res.json(seoAnalysis);
     }catch(err){

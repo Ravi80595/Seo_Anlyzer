@@ -7,7 +7,7 @@ import UsabilityStatus from '../Components/UsabilityStatus'
 import LinksStatus from '../Components/LinksStatus'
 import OnPageStatus from '../Components/OnPageStatus'
 import Score from '../Components/Score'
-
+import '../CSS/Dashboard.css'
 
 
 
@@ -16,33 +16,33 @@ const Dashboard = () => {
     const [url,setUrl]=useState('')
     const [data,setData]=useState([])
     const [loading,setLoading]=useState(false)
-    // const [websiteName,setWebsiteName]=useState('')
-    // console.log(data,'data')
+
+    const [showText1, setShowText1] = useState(false);
+    const [showText2, setShowText2] = useState(false);
+    const [showText3, setShowText3] = useState(false);
+
+    const toggleVisibility = target => {
+        if (target === 'text1') {
+            setShowText1(prevState => !prevState);
+        } else if (target === 'text2') {
+            setShowText2(prevState => !prevState);
+        } else if(target === 'text3'){
+            setShowText3(prevState => !prevState)
+        }
+    };
+
+    console.log(data,'data')
 
 
 const handleSubmit=()=>{
     setLoading(true)
-    axios.post('https://fierce-clam-necklace.cyclic.cloud/admin/seo',{url:url})
+    axios.post('http://localhost:3001/admin/seo',{url:url})
     .then((res)=>{
         console.log(res,'result')
         setLoading(false)
         setData([res.data])
     })
 }
-
-// if(url){
-
-//     const urlParts = url.split('/');
-//     const websiteNameParts = urlParts[2].split('.');
-//     websiteNameParts.splice(0, 1);
-//     setWebsiteName websiteNameParts.join('.');
-    
-// }
-
-// const urlObject = new URL(url);
-//   const websiteName = urlObject.hostname;
-
-// return <p>Website Name: {websiteName}</p>;
 
 
 return (
@@ -57,9 +57,8 @@ return (
            return( 
             <Box background={'#e9e9e9'} key={ele.title}>
            <Box textAlign={'left'} p={3} fontFamily={'"Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif'}>
-            <Box background={'white'} h={300} p={3}>
-            <Text fontSize={'20px'}>Audit Results for -  {ele.websiteUrl}</Text>
-            {/* <Heading mt={10} textAlign={'center'} >Score Here : 82/100</Heading> */}
+            <Box background={'white'} h={'auto'} p={3}>
+            <Text fontSize={'20px'}>Audit Results for -  {ele.WebsiteUrl}</Text>           
             <Score data={ele}/>
             </Box>
             <Box background={'white'} mt={4} borderRadius={5} p={5}>
@@ -83,12 +82,13 @@ return (
                 <Box mt={5} background={'white'} p={5} pl={8} borderRadius={5}>
                     <Text fontSize={'26px'}>On-Page SEO Results</Text>
                     <OnPageStatus data={ele}/>
-                    <Flex justifyContent={'space-between'}>
-                    <Box lineHeight={'30px'} mt={3}>
+                    <Flex cursor='pointer' p={2} _hover={{backgroundColor:'#fafafa'}} justifyContent={'space-between'}>
+                    <Box onClick={() => toggleVisibility('text1')} lineHeight={'30px'} mt={3}>
                         <Text fontWeight={'bold'}>Title Tag</Text>
                         <Text color={'#797979'} fontSize={'14px'}>{ele.isTitleInRange?'You have a title tag of optimal length (between 10 and 70 characters).':'Title charcters not have legth of 60 to 90 charcters'}</Text>
                         <Text color={'#797979'} fontSize={'14px'}>{ele.title}</Text>
                         <Text color={'#797979'} fontSize={'14px'}>Length : {ele.title.length}</Text>
+                       
                     </Box>
                     <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
                     {
@@ -96,8 +96,15 @@ return (
                     }
                     </Flex>
                     </Flex>
+                    {showText1 && (
+                        <div className="hidden-text">
+                         The Title Tag is an important HTML element that tells users and Search Engines what the topic of the webpage is and the type of keywords the page should rank for. The Title will appear in the Header Bar of a user's browser. It is also one of the most important (and easiest to improve) On-Page SEO factors.
+                        <br />
+                        We recommend setting a keyword rich Title between 10–70 characters. This is often simple to enter into your CMS system or may need to be manually set in the header section of the HTML code.
+                        </div>
+                         )}
 
-                    <Flex justifyContent={'space-between'}>
+                    <Flex onClick={() => toggleVisibility('text2')} cursor='pointer' p={2} _hover={{backgroundColor:'#fafafa'}} justifyContent={'space-between'}>
                     <Box lineHeight={'30px'} mt={5}>
                         <Text fontWeight={'bold'}>Meta Description Tag</Text>
                         <Text color={'#797979'} fontSize={'14px'}>{ele.isMetaDescriptionInRange?'Your page has a meta description of optimal length (between 70 and 160 characters).':'Description charcters not have legth of 160 to 300 charcters'}</Text>
@@ -110,7 +117,14 @@ return (
                     }
                     </Flex>
                     </Flex>
-                    <Flex justifyContent={'space-between'}>
+                    {showText2 && (
+                        <div className="hidden-text">
+                            Meta Description is another important HTML element that explains more descriptively to Search Engines what your page is about. Meta Descriptions are often used as the text snippets used in Search Engine results (though Search Engines are inceasingly generating these themselves) and can help further signal to Search Engines what keywords your page should rank for.
+                            <br />
+                            Make sure your page has a Meta Description included, and is at an optimum length (between 70 and 160 characters). Make your Meta Description text interesting and easy to comprehend. Use phrases and keywords relevant to the page and user that you would like to rank for. Meta Description is normally available to be updated in your CMS.
+                        </div>
+                    )}
+                    <Flex onClick={() => toggleVisibility('text3')} cursor='pointer' p={2} _hover={{backgroundColor:'#fafafa'}}  justifyContent={'space-between'}>
                     <Box lineHeight={'30px'} mt={5}>
                         <Text fontWeight={'bold'}>Language</Text>
                         <Text color={'#797979'} fontSize={'14px'}>Declared: English</Text>
@@ -121,6 +135,13 @@ return (
                     }
                     </Flex>
                     </Flex>
+                    {showText3 && (
+                        <div className="hidden-text">
+                            Meta Description is another important HTML element that explains more descriptively to Search Engines what your page is about. Meta Descriptions are often used as the text snippets used in Search Engine results (though Search Engines are inceasingly generating these themselves) and can help further signal to Search Engines what keywords your page should rank for.
+                            <br />
+                            Make sure your page has a Meta Description included, and is at an optimum length (between 70 and 160 characters). Make your Meta Description text interesting and easy to comprehend. Use phrases and keywords relevant to the page and user that you would like to rank for. Meta Description is normally available to be updated in your CMS.
+                        </div>
+                    )}
                     <Flex justifyContent={'space-between'}>
                     <Box lineHeight={'30px'} mt={5}>
                         <Text fontWeight={'bold'}>H1 Header Tag Usage</Text>
@@ -135,11 +156,11 @@ return (
                     <Flex justifyContent={'space-between'}>
                     <Box lineHeight={'30px'} mt={5}>
                         <Text fontWeight={'bold'}>H2-H6 Tags Usage</Text>
-                        <Text color={'#797979'} fontSize={'14px'}>{ele.h2TagCount>0?`Your page has ${ele.h2tagCount} H2 Tag.`:'Your page dont have H2 Tag.'}</Text>
-                        <Text color={'#797979'} fontSize={'14px'}>{ele.h2TagCount>0?`Your page has ${ele.h3tagCount} H3 Tag.`:'Your page dont have H3 Tag.'}</Text>
-                        <Text color={'#797979'} fontSize={'14px'}>{ele.h2TagCount>0?`Your page has ${ele.h4tagCount} H4 Tag.`:'Your page dont have H4 Tag.'}</Text>
-                        <Text color={'#797979'} fontSize={'14px'}>{ele.h2TagCount>0?`Your page has ${ele.h5tagCount} H5 Tag.`:'Your page dont have H5 Tag.'}</Text>
-                        <Text color={'#797979'} fontSize={'14px'}>{ele.h2TagCount>0?`Your page has ${ele.h6tagCount} H6 Tag.`:'Your page dont have H6 Tag.'}</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.h2TagCount>0?`Your page has  ${ele.h2TagCount} H2 Tag.`:'Your page dont have H2 Tag.'}</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.h2TagCount>0?`Your page has ${ele.h3TagCount} H3 Tag.`:'Your page dont have H3 Tag.'}</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.h2TagCount>0?`Your page has ${ele.h4TagCount} H4 Tag.`:'Your page dont have H4 Tag.'}</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.h2TagCount>0?`Your page has ${ele.h5TagCount} H5 Tag.`:'Your page dont have H5 Tag.'}</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.h2TagCount>0?`Your page has ${ele.h6TagCount} H6 Tag.`:'Your page dont have H6 Tag.'}</Text>
                     </Box>
                     <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
                     {
@@ -151,7 +172,7 @@ return (
                     <Box lineHeight={'30px'} mt={5}>
                         <Text fontWeight={'bold'}>Image Alt Attributes</Text>
                         <Text color={'#797979'} fontSize={'14px'}>{ele.imagewithoutAlt>0?'You have images on your page that are missing Alt attributes':'You dont have images on your page that are missing Alt attributes.'}</Text>
-                        <Text color={'#797979'} fontSize={'14px'}>{`We found ${ele.imageCount} images on your page and 1 of them are missing the attribute.`}</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{`We found ${ele.imageCount} images on your page and ${ele.imagewithoutAlt} of them are missing the attribute.`}</Text>
                     </Box>
                       <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
                       {
