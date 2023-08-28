@@ -38,7 +38,7 @@ const Dashboard = () => {
 
 const handleSubmit=()=>{
     setLoading(true)
-    axios.post('http://localhost:3001/admin/seo',{url:url})
+    axios.post('https://fierce-clam-necklace.cyclic.cloud/admin/seo',{url:url})
     .then((res)=>{
         console.log(res,'result')
         setLoading(false)

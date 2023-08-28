@@ -4,7 +4,7 @@ import puppeteer from 'puppeteer'
 
 export const websiteSeo= async(req,res)=>{
     const websiteUrl = req.body.url;
-    // console.log(req.body.url,'req')
+    console.log(req.body.url,'req')
     try{
         const response = await axios.get(websiteUrl);
         const html = response.data;
@@ -286,15 +286,28 @@ export const websiteSeo= async(req,res)=>{
 
 
 
-      const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    await page.goto(websiteUrl, { waitUntil: 'networkidle2' });
+      // const browser = await puppeteer.launch();
+    //   const browser = await puppeteer.launch({ headless: "new" });
 
-    const screenshotData = await page.screenshot();
-    const screenshotBase64 = screenshotData.toString('base64');
+    // const page = await browser.newPage();
+    // await page.goto(websiteUrl, { waitUntil: 'networkidle2' });
 
-    await browser.close();
+    // const screenshotData = await page.screenshot();
+    // const screenshotBase64 = screenshotData.toString('base64');
 
+    let screenshotBase64 = null; // Initialize screenshotBase64
+
+    try {
+      const browser = await puppeteer.launch({ headless: "new" });
+      const page = await browser.newPage();
+      await page.goto(websiteUrl, { waitUntil: 'networkidle2', timeout: 60000 });
+      const screenshotData = await page.screenshot();
+      screenshotBase64 = screenshotData.toString('base64'); // Capture screenshot
+      console.log('Screenshot taken successfully.');
+      await browser.close();
+    } catch (error) {
+      console.error('Navigation error:', error);
+    }
 
 
 // ***************************************** Analysis Report Here *******************************************
