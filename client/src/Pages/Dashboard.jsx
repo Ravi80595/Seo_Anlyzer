@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {Box,Input,Button,Text, Heading, Flex, Image} from '@chakra-ui/react'
+import {Box,Input,Button,Text, Heading, Flex, Image,Spinner} from '@chakra-ui/react'
 import axios from 'axios'
 import {FaCheck} from 'react-icons/fa'
 import {RxCross2} from 'react-icons/rx'
@@ -76,6 +76,12 @@ const handleSubmit=()=>{
     })
 }
 
+// if(loading){
+//     return (
+        
+//     )
+// }
+
 
 return (
     <Box background={'#e9e9e9'} pt={'80px'}>
@@ -85,7 +91,16 @@ return (
         <Button onClick={handleSubmit} mt={5}>Submit</Button>
     </Box>
     <Box mt={4} borderRadius={5} h={'auto'} minHeight={'900px'} background={'white'}>
-        {loading?'Analyzing website please wait.........':data.length===0?<Text mt={'20px'}>Please Enter website url and click on submit</Text>:data.map((ele)=>{
+        {loading? <Box pt={90}>
+            <Spinner
+            thickness='4px'
+            speed='0.65s'
+            emptyColor='gray.200'
+            color='blue.500'
+            size='xl'
+            />
+            <Text> Analyzing website please wait.........</Text>
+            </Box> :data.length===0?<Text mt={'20px'}>Please Enter website url and click on submit</Text>:data.map((ele)=>{
            return( 
             <Box background={'#e9e9e9'} key={ele.title}>
            <Box textAlign={'left'} p={3} fontFamily={'"Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif'}>
