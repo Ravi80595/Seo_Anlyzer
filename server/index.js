@@ -17,12 +17,12 @@ app.use(express.json())
 
 // app.use(cors())
 
-// app.use(cors({
-//     origin: '*'
-// }));
+app.use(cors({
+    origin: '*'
+}));
 
 app.use(cors({
-    origin: 'https://seo-anlyzer.vercel.app/'
+    origin: 'https://seo-anlyzer.vercel.app'
 }));
 
 // app.use("/",(req,res)=>{
