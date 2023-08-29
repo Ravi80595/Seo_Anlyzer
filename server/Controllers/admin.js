@@ -295,14 +295,14 @@ export const websiteSeo= async(req,res)=>{
     // const screenshotData = await page.screenshot();
     // const screenshotBase64 = screenshotData.toString('base64');
 
-    let screenshotBase64 = null; // Initialize screenshotBase64
+    // let screenshotBase64 = null; // Initialize screenshotBase64
 
     // try {
       const browser = await puppeteer.launch({ headless: "new" });
       const page = await browser.newPage();
-      await page.goto(websiteUrl, { waitUntil: 'networkidle2', timeout: 100000 });
+      await page.goto(websiteUrl, { waitUntil: 'networkidle2'});
       const screenshotData = await page.screenshot();
-      screenshotBase64 = screenshotData.toString('base64'); 
+      const screenshotBase64 = screenshotData.toString('base64'); 
       console.log('Screenshot taken successfully.');
       await browser.close();
     // } catch (error) {
