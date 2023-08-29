@@ -287,13 +287,13 @@ export const websiteSeo= async(req,res)=>{
 
 
       // const browser = await puppeteer.launch();
-    //   const browser = await puppeteer.launch({ headless: "new" });
+      const browser = await puppeteer.launch({ headless: "new" });
 
-    // const page = await browser.newPage();
-    // await page.goto(websiteUrl, { waitUntil: 'networkidle2' });
+    const page = await browser.newPage();
+    await page.goto(websiteUrl, { waitUntil: 'networkidle2' });
 
-    // const screenshotData = await page.screenshot();
-    // const screenshotBase64 = screenshotData.toString('base64');
+    const screenshotData = await page.screenshot();
+    const screenshotBase64 = screenshotData.toString('base64');
 
     // let screenshotBase64 = null; // Initialize screenshotBase64
 
