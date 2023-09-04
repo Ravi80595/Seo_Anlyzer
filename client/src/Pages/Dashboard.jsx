@@ -8,6 +8,7 @@ import LinksStatus from '../Components/LinksStatus'
 import OnPageStatus from '../Components/OnPageStatus'
 import Score from '../Components/Score'
 import '../CSS/Dashboard.css'
+import PerformanceStatus from '../Components/PerformanceStatus'
 
 
 
@@ -66,9 +67,10 @@ const Dashboard = () => {
 
     // https://fierce-clam-necklace.cyclic.cloud
 
+
 const handleSubmit=()=>{
     setLoading(true)
-    axios.post('https://long-cow-woolens.cyclic.app/admin/seo',{url:url})
+    axios.post('http://localhost:3001/admin/seo',{url:url})
     .then((res)=>{
         console.log(res,'result')
         setLoading(false)
@@ -106,7 +108,7 @@ return (
            <Box textAlign={'left'} p={3} fontFamily={'"Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif'}>
             <Box background={'white'} h={'auto'} p={3}>
             <Text fontSize={'20px'}>Audit Results for -  {ele.WebsiteUrl}</Text>           
-            <Score data={ele}/>
+            <Score data={ele} url={url}/>
             </Box>
             <Box background={'white'} mt={4} borderRadius={5} p={5}>
                 <Box>
@@ -469,6 +471,71 @@ Google Analytics is a web analytics service by Google that tracks and reports we
                       </Flex>
                       </Flex>
                 </Box>
+
+
+
+{/* <Box>
+   <Performance url={url}/>
+</Box> */}
+
+
+
+
+
+<Box mt={5} background={'white'} p={5} pl={8} borderRadius={5}>
+                <Text fontSize={'26px'}>Performance</Text>
+                <PerformanceStatus data={ele}/>
+                <Flex justifyContent={'space-between'}>
+                <Box lineHeight={'30px'} mt={5}>
+                        <Text fontWeight={'bold'}>Page Size</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.pageSize>20?'Page size is not good':'Page Size is good'}</Text>
+                    </Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                      {
+                          ele.pageSize>20?<FaCheck color='green'/>:<RxCross2 color='red'/>
+                      }
+                      </Flex>
+                      </Flex>
+                    <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
+                        <Text fontWeight={'bold'}>HTTP/2 Usage Checker</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.isHttp2Used?'Website is using HTTP/2.':'Website is not using HTTP/2.'}</Text>
+                    </Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                      {
+                          ele.isHttp2Used?<FaCheck color='green'/>:<RxCross2 color='red'/>
+                      }
+                      </Flex>
+                      </Flex>
+                    <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
+                        <Text fontWeight={'bold'}>Inline Styles Checker</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.inlineStyles?'Website is using inline styles.':'Website is not using inline styles.'}</Text>
+                    </Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                      {
+                          ele.inlineStyles?<RxCross2 color='red'/>:<FaCheck color='green'/>
+                      }
+                      </Flex>
+                      </Flex>
+                    <Flex justifyContent={'space-between'}>
+                    <Box lineHeight={'30px'} mt={5}>
+                        <Text fontWeight={'bold'}>Minification Checker</Text>
+                        <Text color={'#797979'} fontSize={'14px'}>{ele.isMinified?'Files on the website are minified.':'Files on the website are not minified.'}</Text>
+                    </Box>
+                    <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
+                      {
+                          ele.hasSmallFont?<FaCheck color='green'/>:<RxCross2 color='red'/>
+                      }
+                      </Flex>
+                      </Flex>
+                </Box>
+
+
+
+
+
+
 
 
 

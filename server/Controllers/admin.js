@@ -2,6 +2,9 @@ import axios from "axios";
 import cheerio from "cheerio";
 import puppeteer from 'puppeteer'
 
+
+
+
 export const websiteSeo= async(req,res)=>{
     const websiteUrl = req.body.url;
     console.log(req.body.url,'req')
@@ -285,6 +288,10 @@ export const websiteSeo= async(req,res)=>{
         const hasSmallFont = smallFontElements.length > 0;
 
 
+// ************************************** Performance logic here **********************************************
+
+
+
 
       // const browser = await puppeteer.launch();
     //   const browser = await puppeteer.launch({ headless: "new" });
@@ -309,6 +316,13 @@ export const websiteSeo= async(req,res)=>{
       // console.error('Navigation error:', error);
     // }
 
+
+
+    const isHttp2Used = await checkHttp2Usage(websiteUrl);
+    const pageSize = await checkPageSize(websiteUrl);
+    const inlineStyles = checkInlineStyles($);
+    const isMinified = checkMinification(html);
+    const screenshotBase64 = await captureWebsiteScreenshot(websiteUrl);
 
 // ***************************************** Analysis Report Here *******************************************
     
@@ -360,6 +374,11 @@ export const websiteSeo= async(req,res)=>{
           hasSmallFont:hasSmallFont,
           language:true,
           // screenshotBase64:screenshotBase64
+          isHttp2Used: isHttp2Used,
+          pageSize: pageSize,
+          inlineStyles: inlineStyles,
+          isMinified: isMinified,
+          screenshotBase64: screenshotBase64,
         };
         res.json(seoAnalysis);
     }catch(err){
@@ -367,12 +386,85 @@ export const websiteSeo= async(req,res)=>{
     }
 }
 
+async function captureWebsiteScreenshot(websiteUrl) {
+  try {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto(websiteUrl, { waitUntil: 'networkidle2' });
+
+    // Capture a screenshot
+    const screenshotData = await page.screenshot();
+    const screenshotBase64 = screenshotData.toString('base64');
+
+    await browser.close();
+
+    return screenshotBase64;
+  } catch (error) {
+    console.error('Error capturing website screenshot:', error);
+    return null;
+  }
+}
+
 
 function containsUnfriendlyParameters(url) {
   return url.length > 100 || /[!@#$%^&*()_+{}\[\]:;<>,.?~]/.test(url);
 }
 
+async function checkHttp2Usage(url) {
+  try {
+    const response = await axios.get(url, {
+      validateStatus: function (status) {
+        return status >= 200 && status < 300; // Accept only successful responses
+      },
+    });
+
+    const protocol = response.headers[':version'];
+
+    return protocol === 'HTTP/2';
+  } catch (error) {
+    console.error('Error checking HTTP/2 usage:', error);
+    return false;
+  }
+}
 
 
+async function checkPageSize(url) {
+  try {
+      const response = await fetch(url);
+      const contentLengthHeader = response.headers.get('content-length');
+      if (contentLengthHeader) {
+          const contentLength = parseInt(contentLengthHeader, 10);
+          return contentLength / 1024; // Convert to KB
+      } else {
+          console.error('Content-Length header not found in response.');
+          return null;
+      }
+  } catch (error) {
+      console.error('Error checking page size:', error);
+      return null;
+  }
+}
+
+
+
+function checkInlineStyles($) {
+  const hasInlineStyles = $('[style]').length > 0;
+  return hasInlineStyles;
+}
+
+function checkMinification(html) {
+  // Remove spaces, tabs, and line breaks from the HTML
+  const minifiedHtml = html.replace(/\s+/g, '');
+
+  // Compare the lengths of original and minified HTML
+  const originalLength = html.length;
+  const minifiedLength = minifiedHtml.length;
+
+  // If minified HTML is significantly shorter than original, consider it minified
+  const minificationThreshold = 0.7; // You can adjust this threshold as needed
+  const minificationRatio = minifiedLength / originalLength;
+
+  return minificationRatio <= minificationThreshold;
+}
 
 // https://fierce-clam-necklace.cyclic.cloud
