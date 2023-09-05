@@ -5,7 +5,7 @@ class WebsiteScreenshot extends Component {
   state = {
     screenshotUrl: null,
     error: null,
-  };
+  }; 
 
   componentDidMount() {
     const { websiteUrl, apiKey } = this.props;

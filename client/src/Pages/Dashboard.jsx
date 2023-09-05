@@ -62,10 +62,7 @@ const Dashboard = () => {
         
     };
 
-    console.log(data,'data')
-
-
-    // https://fierce-clam-necklace.cyclic.cloud
+    
 
 
 const handleSubmit=()=>{
@@ -78,14 +75,9 @@ const handleSubmit=()=>{
     })
 }
 
-// if(loading){
-//     return (
-        
-//     )
-// }
 
 
-return (
+return(
     <Box background={'#e9e9e9'} pt={'80px'}>
     <Box  w={'70%'} m={'auto'} pt={1}>
     <Box borderRadius={5} w={'100%'} m={'auto'} p={10} mt={10} background={'white'}>
