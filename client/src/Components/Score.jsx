@@ -45,8 +45,6 @@ return (
     <Flex gap={'70px'} w={'90%'} m={'auto'}  mt={10} mb={10}>
      <Box w={'50%'}> 
     <Box w={'60%'} m ='auto'>
-
-    {/* <Text fontSize={'46px'} fontWeight={'700'} color={'blue.400'}>{trueCount+falseCount>=20?'PERFECT':trueCount+falseCount>=14?'NORMAL':'BAD'}</Text> */}
     <Image w={'150px'} src={trueCount+falseCount+count>=20?'https://cdn1.iconfinder.com/data/icons/education-outline-24/64/1_18-512.png':trueCount+falseCount+count>=15?'https://cdn1.iconfinder.com/data/icons/education-outline-24/64/1_19-512.png':'https://cdn1.iconfinder.com/data/icons/education-outline-24/64/1_20-512.png'}/>
     </Box>
      <Box>

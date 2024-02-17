@@ -1,7 +1,8 @@
-import logo from './logo.svg';
 import './App.css';
 import Dashboard from './Pages/Dashboard';
 import Navbar from './Components/Navbar';
+import { Box } from '@chakra-ui/react';
+import AllRoute from './Routes/AllRoutes';
 
 
 
@@ -9,10 +10,11 @@ function App() {
 
 
 return (
-    <div className="App">
+    <Box>
       <Navbar/>
-      <Dashboard/>
-    </div>
+      <AllRoute/>
+      {/* <Dashboard/> */}
+    </Box>
   );
 }
 

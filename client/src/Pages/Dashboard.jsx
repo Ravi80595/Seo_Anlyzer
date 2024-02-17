@@ -1,89 +1,172 @@
-import React, { useState } from 'react'
-import {Box,Input,Button,Text, Heading, Flex, Image,Spinner} from '@chakra-ui/react'
-import axios from 'axios'
-import {FaCheck} from 'react-icons/fa'
-import {RxCross2} from 'react-icons/rx'
-import UsabilityStatus from '../Components/UsabilityStatus'
-import LinksStatus from '../Components/LinksStatus'
-import OnPageStatus from '../Components/OnPageStatus'
-import Score from '../Components/Score'
-import '../CSS/Dashboard.css'
-import PerformanceStatus from '../Components/PerformanceStatus'
-
-
-
+import React, { useState } from 'react';
+import { Box, Input, Button, Heading, Text, Flex, Image } from '@chakra-ui/react';
+import axios from 'axios';
+import DashboardData from './DashboardData';
+import About from '../Components/About';
 
 const Dashboard = () => {
-    const [url,setUrl]=useState('')
-    const [data,setData]=useState([])
-    const [loading,setLoading]=useState(false)
-    const [showText1, setShowText1] = useState(false);
-    const [showText2, setShowText2] = useState(false);
-    const [showText3, setShowText3] = useState(false);
-    const [showText4, setShowText4] = useState(false);
-    const [showText5, setShowText5] = useState(false);
-    const [showText6, setShowText6] = useState(false);
-    const [showText7, setShowText7] = useState(false);
-    const [showText8, setShowText8] = useState(false);
-    const [showText9, setShowText9] = useState(false);
-    const [showText10, setShowText10] = useState(false);
-    const [showText11, setShowText11] = useState(false);
-    const [showText12, setShowText12] = useState(false);
-    const [showText13, setShowText13] = useState(false);
+    const [url, setUrl] = useState('');
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(false);
 
-    const toggleVisibility = target => {
-        if (target === 'text1') {
-            setShowText1(prevState => !prevState);
-        } else if (target === 'text2') {
-            setShowText2(prevState => !prevState);
-        } else if(target === 'text3'){
-            setShowText3(prevState => !prevState)
-        } else if(target === 'text4'){
-            setShowText4(prevState => !prevState)
-        } else if(target === 'text5'){
-            setShowText5(prevState => !prevState)
-        } else if(target === 'text6'){
-            setShowText6(prevState => !prevState)
-        } else if(target === 'text7'){
-            setShowText7(prevState=> !prevState)
-        } else if(target === 'text8'){
-            setShowText8(prevState =>!prevState)
-        } else if(target === 'text9'){
-            setShowText9(prevState => !prevState )
-        } else if(target ==='text10'){
-            setShowText10(prevState=>!prevState)
-        } else if (target === 'text11'){
-            setShowText11(prevState => !prevState)
-        } else if (target ==='text12'){
-             setShowText12(prevState => !prevState)
-        } else if(target ==='text13'){
-            setShowText13(prevState => !prevState)
-        }
-        
+    const handleSubmit = () => {
+        setLoading(true);
+        axios.post('http://localhost:3001/admin/seo', { url: url })
+            .then((res) => {
+                setLoading(false);
+                setData([res.data]);
+            });
     };
+
+return (
+    <Box mt={'70px'}>
+        {!data.length ? (
+        <Box>
+            <Heading mt={'50px'} textAlign={'center'} color={'#000'} fontWeight={'7000'} fontSize={'72px'} lineHeight={'1.18rem'} padding={'35px 0 60px'} fontFamily={'gordita'}>SEO Audit & Reporting Tool</Heading>
+            <Text fontSize={'24px'} lineHeight={'1.17rem'} paddingBottom={'55px'} fontFamily={'gordita'} textAlign={'center'}>Enter an URL address and get a Free Website Analysis!</Text>
+        <Flex gap={'20px'} p={'10px'} border='2px solid black' className='urlBox' borderRadius={5} w={'40%'} m={'auto'} mt={10} background={'white'}>
+            <Input fontSize={'20px'} placeholder='Example.com' value={url} onChange={(e) => setUrl(e.target.value)} border={'none'}/>
+            <Flex w={'200px'}>  
+                <Button _hover={{color:'white'}} w={'100%'} fontFamily={'inherit'} fontSize={'20px'} background={'#6f55ff'} color={'white'} onClick={handleSubmit} disabled={loading}>{loading ? 'Loading...' : 'Audit'}</Button>
+            </Flex>
+        </Flex>
+            <Box mt={'40px'} w={'100%'}>
+                <Image h={'250px'} w={'100%'} src='https://i.pinimg.com/736x/ab/a0/b1/aba0b15cac7e0c224415d533ca8be73e.jpg'/>
+            </Box>
+            <About/>
+        </Box>
+        ) : (
+            <DashboardData data={data} url={url} />
+        )}
+    </Box>
+);
+};
+
+export default Dashboard;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React, { useState } from 'react'
+// import {Box,Input,Button,Text, Heading, Flex, Image,Spinner} from '@chakra-ui/react'
+// import axios from 'axios'
+// import {FaCheck} from 'react-icons/fa'
+// import {RxCross2} from 'react-icons/rx'
+// import UsabilityStatus from '../Components/UsabilityStatus'
+// import LinksStatus from '../Components/LinksStatus'
+// import OnPageStatus from '../Components/OnPageStatus'
+// import Score from '../Components/Score'
+// import '../CSS/Dashboard.css'
+// import PerformanceStatus from '../Components/PerformanceStatus'
+// import DashboardData from './DashboardData'
+
+
+
+
+// const Dashboard = () => {
+//     const [url,setUrl]=useState('')
+//     const [data,setData]=useState([])
+//     const [loading,setLoading]=useState(false)
+    // const [showText1, setShowText1] = useState(false);
+    // const [showText2, setShowText2] = useState(false);
+    // const [showText3, setShowText3] = useState(false);
+    // const [showText4, setShowText4] = useState(false);
+    // const [showText5, setShowText5] = useState(false);
+    // const [showText6, setShowText6] = useState(false);
+    // const [showText7, setShowText7] = useState(false);
+    // const [showText8, setShowText8] = useState(false);
+    // const [showText9, setShowText9] = useState(false);
+    // const [showText10, setShowText10] = useState(false);
+    // const [showText11, setShowText11] = useState(false);
+    // const [showText12, setShowText12] = useState(false);
+    // const [showText13, setShowText13] = useState(false);
+
+    // const toggleVisibility = target => {
+    //     if (target === 'text1') {
+    //         setShowText1(prevState => !prevState);
+    //     } else if (target === 'text2') {
+    //         setShowText2(prevState => !prevState);
+    //     } else if(target === 'text3'){
+    //         setShowText3(prevState => !prevState)
+    //     } else if(target === 'text4'){
+    //         setShowText4(prevState => !prevState)
+    //     } else if(target === 'text5'){
+    //         setShowText5(prevState => !prevState)
+    //     } else if(target === 'text6'){
+    //         setShowText6(prevState => !prevState)
+    //     } else if(target === 'text7'){
+    //         setShowText7(prevState=> !prevState)
+    //     } else if(target === 'text8'){
+    //         setShowText8(prevState =>!prevState)
+    //     } else if(target === 'text9'){
+    //         setShowText9(prevState => !prevState )
+    //     } else if(target ==='text10'){
+    //         setShowText10(prevState=>!prevState)
+    //     } else if (target === 'text11'){
+    //         setShowText11(prevState => !prevState)
+    //     } else if (target ==='text12'){
+    //          setShowText12(prevState => !prevState)
+    //     } else if(target ==='text13'){
+    //         setShowText13(prevState => !prevState)
+    //     }
+        
+    // };
 
     
 
 
-const handleSubmit=()=>{
-    setLoading(true)
-    axios.post('http://localhost:3001/admin/seo',{url:url})
-    .then((res)=>{
-        console.log(res,'result')
-        setLoading(false)
-        setData([res.data])
-    })
-}
+// const handleSubmit=()=>{
+//     setLoading(true)
+//     console.log()
+//     axios.post('http://localhost:3001/admin/seo',{url:url})
+//     .then((res)=>{
+//         console.log(res,'result')
+//         setLoading(false)
+//         setData([res.data])
+//     })
+// }
 
 
 
-return(
-    <Box background={'#e9e9e9'} pt={'80px'}>
-    <Box  w={'70%'} m={'auto'} pt={1}>
-    <Box borderRadius={5} w={'100%'} m={'auto'} p={10} mt={10} background={'white'}>
-        <Input placeholder='Enter Your url here' value={url} onChange={(e)=>setUrl(e.target.value)}/>
-        <Button onClick={handleSubmit} mt={5}>Submit</Button>
-    </Box>
+// return(
+//     <Box background={'#e9e9e9'} pt={'80px'}>
+//     <Box className='urlBox' borderRadius={5} w={'100%'} m={'auto'} p={10} mt={10} background={'white'}>
+//         <Input placeholder='Enter Your url here' value={url} onChange={(e)=>setUrl(e.target.value)}/>
+//         <Button onClick={handleSubmit} mt={5}>Submit</Button>
+//     </Box>
+//     <DashboardData data={data} url={url}/>
+//     </Box>
+//      )
+//     }
+    
+// export default Dashboard
+
+
+
+    {/* <Box  w={'70%'} m={'auto'} pt={1}>
     <Box mt={4} borderRadius={5} h={'auto'} minHeight={'900px'} background={'white'}>
         {loading? <Box pt={90}>
             <Spinner
@@ -240,7 +323,6 @@ return(
                     <Box lineHeight={'30px'} mt={5}>
                         <Text fontWeight={'bold'}>Canonical Tag</Text>
                         <Text color={'#797979'} fontSize={'14px'}>{ele.hasCanonical}</Text>
-                        {/* <Text>{`We found ${ele.imageCount} images on your page and 1 of them are missing the attribute.`}</Text> */}
                     </Box>
                     <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
                       {
@@ -257,7 +339,6 @@ return(
                     <Box lineHeight={'30px'} mt={5}>
                         <Text fontWeight={'bold'}>Hreflang Usage</Text>
                         <Text color={'#797979'} fontSize={'14px'}>{ele.hasHreflangAttribute?'Your page is making use of Hreflang attributes.':'Your page is not making use of Hreflang attributes.'}</Text>
-                        {/* <Text>{`We found ${ele.imageCount} images on your page and 1 of them are missing the attribute.`}</Text> */}
                     </Box>
                     <Flex fontSize={'36px'}  mr={'40px'} justifyContent={'center'} alignItems={'center'}>
                       {
@@ -466,9 +547,6 @@ Google Analytics is a web analytics service by Google that tracks and reports we
 
 
 
-{/* <Box>
-   <Performance url={url}/>
-</Box> */}
 
 
 
@@ -619,9 +697,11 @@ Google Analytics is a web analytics service by Google that tracks and reports we
                 )
         })}
     </Box>
-    </Box>
-    </Box>
-  )
-}
+    </Box> */}
+    
+ 
 
-export default Dashboard
+
+{/* <Box>
+   <Performance url={url}/>
+</Box> */}
